@@ -12,7 +12,7 @@ const {
   borrarPadre,
   activarPadre,
   getPadreById,
-} = require("../controllers/Padres");
+} = require("../controllers/padres");
 const { validarAdminJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
