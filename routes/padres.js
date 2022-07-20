@@ -74,7 +74,7 @@ router.put(
     check("numeroExterior", "El numero exterior es obligatorio")
       .not()
       .isEmpty(),
-    check("numeroInterior", "El numero interior es obligatorio")
+    check("numeroInterior", "El numero interior es obligatorio.")
       .not()
       .isEmpty(),
     check("colonia", "la colonia es obligatoria").not().isEmpty(),
