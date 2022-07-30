@@ -50,6 +50,7 @@ app.use("/api/padres", require("./routes/padres"));
 app.use("/api/login", require("./routes/auth"));
 app.use("/api/search", require("./routes/busquedas"));
 app.use("/api/upload", require("./routes/uploads"));
+app.use("/api/messages", require("./routes/messages"));
 app.get("*", function (req, res, next) {
   res.sendFile(path.resolve("client/index.html"));
 });

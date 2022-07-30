@@ -41,9 +41,7 @@ router.put(
     check("apellidoPaterno", "El apellido paterno es obligatorio")
       .not()
       .isEmpty(),
-    check("apellidoMaterno", "El apellido materno es obligatorio")
-      .not()
-      .isEmpty(),
+    
     check("email", "El email es obligatorio ").isEmail().not().isEmpty(),
     check("role", "El role es obligatorio").not().isEmpty(),
     check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),

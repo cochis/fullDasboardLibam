@@ -40,9 +40,7 @@ router.post(
     check("numeroExterior", "El numero exterior es obligatorio")
       .not()
       .isEmpty(),
-    check("numeroInterior", "El numero interior es obligatorio")
-      .not()
-      .isEmpty(),
+
     check("colonia", "la colonia es obligatoria").not().isEmpty(),
     check("codigoPostal", "El codigo postal es obligatorio").not().isEmpty(),
     check("entreCalles", "Las entre calles son obligatorias").not().isEmpty(),

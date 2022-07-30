@@ -67,6 +67,10 @@ const getDocumentosColeccion = async (req, res = response) => {
       data = await Padre.find({ nombre: regex });
 
       break;
+    case "alumnos":
+      data = await Alumno.find({ nombre: regex });
+
+      break;
 
     default:
       res.status(400).json({

@@ -78,7 +78,6 @@ const MaestroSchema = Schema({
   },
   numeroInterior: {
     type: String,
-    required: true,
   },
   colonia: {
     type: String,
@@ -132,6 +131,12 @@ const MaestroSchema = Schema({
   notas: {
     type: String,
   },
+    usuario: 
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Usuario",
+    },
+  
   activated: {
     type: Boolean,
     default: false,

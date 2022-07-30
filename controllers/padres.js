@@ -4,15 +4,23 @@ const Padre = require("../models/padre");
 const { generarJWT } = require("../helpers/jwt");
 //getPadres Padre
 const getPadres = async (req, res) => {
-  const padres = await Padre.find(
-    {},
-    " hijo titular recoger nombre fechaNacimiento img nacionalidad curp telefonoCelular telefonoCasa email redSocial ocupacion gradoMaximoEstudios estadoCivil calle numeroExterior numeroInterior colonia municipio estado codigoPostal entreCalles parentesco notas activated dateCreated lastEdited usuarioCreated  uid"
-  )
-    .populate(
-      "hijo",
-      "nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimiento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefono calle numeroExterior numeroInterior colonia codigoPostal estado municipio grado documentosEntregados padres currentCurso notas usuarioCreated usuario activated dateCreated lastEdited uid "
+  const desde = Number(req.query.desde) || 0;
+
+  const [padres, total] = await Promise.all([
+    Padre.find(
+      {},
+      " hijo titular recoger nombre fechaNacimiento img nacionalidad curp telefonoCelular telefonoCasa email redSocial ocupacion gradoMaximoEstudios estadoCivil calle numeroExterior numeroInterior colonia municipio estado codigoPostal entreCalles parentesco notas activated dateCreated lastEdited usuarioCreated  uid"
     )
-    .populate("parentesco", "uid nombre clave uid");
+      .populate(
+        "hijo",
+        "nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimiento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefono calle numeroExterior numeroInterior colonia codigoPostal estado municipio grado documentosEntregados padres currentCurso notas usuarioCreated usuario activated dateCreated lastEdited uid "
+      )
+      .populate("parentesco", "uid nombre clave uid")
+      .skip(desde)
+      .limit(5),
+    Padre.countDocuments(),
+  ]);
+
   res.json({
     ok: true,
     padres,

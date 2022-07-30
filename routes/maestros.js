@@ -12,12 +12,16 @@ const {
   borrarMaestro,
   activarMaestro,
   getMaestroById,
+  getMaestrosAll,
+  getMyMaestro
 } = require("../controllers/maestros");
-const { validarAdminJWT } = require("../middlewares/validar-jwt");
+const { validarAdminJWT,validarJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
 router.get("/", validarAdminJWT, getMaestros);
+router.get("/all", validarAdminJWT, getMaestrosAll);
 router.get("/:uid", validarAdminJWT, getMaestroById);
+router.get("/my/:uid", validarJWT, getMyMaestro);
 router.post(
   "/",
   [

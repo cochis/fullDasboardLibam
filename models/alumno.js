@@ -11,8 +11,15 @@ const AlumnoSchema = Schema({
   apellidoMaterno: {
     type: String,
   },
+  img: {
+    type: String,
+  },
   clave: {
     type: String,
+    required: true,
+  },
+   claveCheck: {
+    type: Boolean,
     required: true,
   },
   sexo: {

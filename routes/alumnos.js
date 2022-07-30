@@ -12,11 +12,15 @@ const {
   borrarAlumno,
   activarAlumno,
   getAlumnoById,
+  getAlumnosAll,
+  getMyAlumno
 } = require("../controllers/alumnos");
-const { validarAdminJWT } = require("../middlewares/validar-jwt");
+const { validarAdminJWT, validarJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 router.get("/", validarAdminJWT, getAlumnos);
+router.get("/all", validarAdminJWT, getAlumnosAll);
 router.get("/:uid", validarAdminJWT, getAlumnoById);
+router.get("/my/:uid", validarJWT, getMyAlumno);
 router.post(
   "/",
   [

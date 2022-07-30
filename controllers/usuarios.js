@@ -5,15 +5,17 @@ const { generarJWT } = require("../helpers/jwt");
 //getUsuarios Usuario
 const getUsuarios = async (req, res) => {
   const desde = Number(req.query.desde) || 0;
-
+  const cant = Number(req.query.cant) || 10;
+  console.log('cant', cant)
   const [usuarios, total] = await Promise.all([
     Usuario.find(
       {},
       "nombre apellidoPaterno apellidoMaterno email activated dateCreated lastEdited role google usuarioCreated img"
     )
+      .sort({nombre:1})
       .populate("usuarioCreated", "nombre , email")
       .skip(desde)
-      .limit(5),
+      .limit(cant),
     Usuario.countDocuments(),
   ]);
 
@@ -25,13 +27,13 @@ const getUsuarios = async (req, res) => {
   });
 };
 const getAllUsuarios = async (req, res) => {
-  const desde = Number(req.query.desde) || 0;
-
   const [usuarios, total] = await Promise.all([
     Usuario.find(
       {},
       "nombre apellidoPaterno apellidoMaterno email activated dateCreated lastEdited role google usuarioCreated img"
-    ).populate("usuarioCreated", "nombre , email"),
+    )
+      .sort({nombre:1})
+      .populate("usuarioCreated", "nombre , email"),
     Usuario.countDocuments(),
   ]);
 

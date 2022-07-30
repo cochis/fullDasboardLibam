@@ -6,7 +6,9 @@ const { actualizarImagen } = require("../helpers/actualizar-imagen");
 const fileUpload = (req, res = response) => {
   const tipo = req.params.tipo;
   const id = req.params.id;
-  const tiposValidos = ["usuarios", "padres", "grupos"];
+  console.log('fileUploadtipo', tipo)
+  console.log('fileUploadid', id)
+  const tiposValidos = ["usuarios", "padres", "maestros", "grupos","alumnos"];
   if (!tiposValidos.includes(tipo)) {
     return res.status(400).json({
       ok: false,
@@ -56,6 +58,9 @@ const fileUpload = (req, res = response) => {
 const retornaImagen = (req, res = response) => {
   const tipo = req.params.tipo;
   const foto = req.params.foto;
+  
+  console.log('tipo', tipo)
+  console.log('foto', foto)
 
   const pathImg = path.join(__dirname, `../uploads/${tipo}/${foto}`);
   if (fs.existsSync(pathImg)) {
