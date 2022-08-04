@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose')
 const AlumnoSchema = Schema({
   nombre: {
     type: String,
@@ -18,13 +18,13 @@ const AlumnoSchema = Schema({
     type: String,
     required: true,
   },
-   claveCheck: {
+  claveCheck: {
     type: Boolean,
     required: true,
   },
   sexo: {
     type: Schema.Types.ObjectId,
-    ref: "Sexo",
+    ref: 'Sexo',
     required: true,
   },
   fechaNacimiento: {
@@ -51,7 +51,7 @@ const AlumnoSchema = Schema({
   },
   tipoSanguineo: {
     type: Schema.Types.ObjectId,
-    ref: "TipoSanguineo",
+    ref: 'TipoSanguineo',
     required: true,
   },
   telefono: {
@@ -80,29 +80,26 @@ const AlumnoSchema = Schema({
   },
   grado: {
     type: Schema.Types.ObjectId,
-    ref: "Grado",
+    ref: 'Grado',
     required: true,
   },
   documentosEntregados: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Documento",
+      ref: 'Documento',
       required: true,
-      default: "",
+      default: '',
     },
   ],
   padres: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Padre",
+      ref: 'Padre',
     },
   ],
-  img: {
-    type: String,
-  },
   currentCurso: {
     type: Schema.Types.ObjectId,
-    ref: "Curso",
+    ref: 'Curso',
   },
   notas: {
     type: String,
@@ -123,17 +120,17 @@ const AlumnoSchema = Schema({
   },
   usuario: {
     type: Schema.Types.ObjectId,
-    ref: "Usuario",
+    ref: 'Usuario',
   },
   usuarioCreated: {
     type: Schema.Types.ObjectId,
-    ref: "Usuario",
+    ref: 'Usuario',
   },
-});
+})
 
-AlumnoSchema.method("toJSON", function () {
-  const { __v, _id, ...object } = this.toObject();
-  object.uid = _id;
-  return object;
-});
-module.exports = model("Alumno", AlumnoSchema);
+AlumnoSchema.method('toJSON', function () {
+  const { __v, _id, ...object } = this.toObject()
+  object.uid = _id
+  return object
+})
+module.exports = model('Alumno', AlumnoSchema)
