@@ -112,7 +112,6 @@ const borrarPagosCiclos = async (req, res = response) => {
 }
 const activarPagosCiclos = async (req, res = response) => {
   const uid = req.params.id
-  console.log('uid activarPagosCiclos', uid)
   try {
     const pagosCicloDB = await PagosCiclo.findById(uid)
     if (!pagosCicloDB) {
@@ -147,9 +146,6 @@ const activarPagosCiclos = async (req, res = response) => {
 
 const getCicloByAlumno = async (req, res) => {
   const alumno = req.params.alumno
-  console.log('Alumno', alumno)
-  console.log('')
-
   try {
     const cicloDB = await PagosCiclo.find({ alumno: alumno })
 
@@ -174,9 +170,6 @@ const getCicloByAlumno = async (req, res) => {
 }
 const getCicloByCiclo = async (req, res) => {
   const ciclo = req.params.ciclo
-  console.log('Alumno', ciclo)
-  console.log('')
-
   try {
     const cicloDB = await PagosCiclo.find({ ciclo: ciclo })
 
@@ -201,9 +194,6 @@ const getCicloByCiclo = async (req, res) => {
 }
 const getCicloByCurso = async (req, res) => {
   const curso = req.params.curso
-  console.log('curso', curso)
-  console.log('')
-
   try {
     const cicloDB = await PagosCiclo.find({ curso: curso })
 
@@ -229,7 +219,6 @@ const getCicloByCurso = async (req, res) => {
 
 const getPagosCiclosById = async (req, res) => {
   const uid = req.params.uid
-  console.log('uid', uid)
   try {
     const cicloDB = await PagosCiclo.findById(uid)
       .populate('alumno', 'nombre  apellidoPaterno  apellidoMaterno clave uid')

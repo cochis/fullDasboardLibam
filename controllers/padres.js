@@ -1,105 +1,102 @@
-const { response } = require("express");
-const bcrypt = require("bcryptjs");
-const Padre = require("../models/padre");
-const { generarJWT } = require("../helpers/jwt");
+const { response } = require('express')
+const bcrypt = require('bcryptjs')
+const Padre = require('../models/padre')
+const { generarJWT } = require('../helpers/jwt')
 //getPadres Padre
 const getPadres = async (req, res) => {
-  const desde = Number(req.query.desde) || 0;
+  const desde = Number(req.query.desde) || 0
 
   const [padres, total] = await Promise.all([
     Padre.find(
       {},
-      " hijo titular recoger nombre fechaNacimiento img nacionalidad curp telefonoCelular telefonoCasa email redSocial ocupacion gradoMaximoEstudios estadoCivil calle numeroExterior numeroInterior colonia municipio estado codigoPostal entreCalles parentesco notas activated dateCreated lastEdited usuarioCreated  uid"
+      ' hijo titular recoger nombre fechaNacimiento img nacionalidad curp telefonoCelular telefonoCasa email redSocial ocupacion gradoMaximoEstudios estadoCivil calle numeroExterior numeroInterior colonia municipio estado codigoPostal entreCalles parentesco notas activated dateCreated lastEdited usuarioCreated  uid',
     )
       .populate(
-        "hijo",
-        "nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimiento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefono calle numeroExterior numeroInterior colonia codigoPostal estado municipio grado documentosEntregados padres currentCurso notas usuarioCreated usuario activated dateCreated lastEdited uid "
+        'hijo',
+        'nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimiento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefono calle numeroExterior numeroInterior colonia codigoPostal estado municipio grado documentosEntregados padres currentCurso notas usuarioCreated usuario activated dateCreated lastEdited uid ',
       )
-      .populate("parentesco", "uid nombre clave uid")
+      .populate('parentesco', 'uid nombre clave uid')
       .skip(desde)
       .limit(5),
     Padre.countDocuments(),
-  ]);
+  ])
 
   res.json({
     ok: true,
     padres,
     uid: req.uid,
-  });
-};
+  })
+}
 
 //crearPadre Padre
 const crearPadre = async (req, res = response) => {
-  const { curp, nombre } = req.body;
-  const uid = req.uid;
+  const { curp, nombre } = req.body
+  const uid = req.uid
   const padre = new Padre({
     usuario: uid,
     ...req.body,
-  });
-  console.log("padre", padre);
+  })
   try {
-    const existeCurp = await Padre.findOne({ curp });
+    const existeCurp = await Padre.findOne({ curp })
     if (existeCurp) {
       return res.status(400).json({
         ok: false,
-        msg: "El CURP ya está registrado",
-      });
+        msg: 'El CURP ya está registrado',
+      })
     }
-    await padre.save();
+    await padre.save()
     res.json({
       ok: true,
       padre,
-    });
+    })
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
-      msg: "Error inesperado...  revisar logs",
-    });
+      msg: 'Error inesperado...  revisar logs',
+    })
   }
-};
+}
 
 //actualizarPadre Padre
 const actualizarPadre = async (req, res = response) => {
   //Validar token y comporbar si es el spadre
 
-  const uid = req.params.id;
-  console.log("uid", uid);
+  const uid = req.params.id
   try {
-    const padreDB = await Padre.findById(uid);
+    const padreDB = await Padre.findById(uid)
 
     if (!padreDB) {
       return res.status(404).json({
         ok: false,
-        msg: "No exite un padre",
-      });
+        msg: 'No exite un padre',
+      })
     }
 
-    console.log("req.body", req.body);
     const padreActualizado = await Padre.findByIdAndUpdate(uid, req.body, {
       new: true,
-    });
+    })
     res.json({
       ok: true,
       padreActualizado,
-    });
+    })
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
-      msg: "Error inesperado",
-    });
+      msg: 'Error inesperado',
+    })
   }
-};
+}
 const borrarPadre = async (req, res = response) => {
-  const uid = req.params.id;
+  const uid = req.params.id
   try {
-    const padreDB = await Padre.findById(uid);
+    const padreDB = await Padre.findById(uid)
     if (!padreDB) {
       return res.status(404).json({
         ok: false,
-        msg: "No exite un padre",
-      });
+        msg: 'No exite un padre',
+      })
     }
 
     const {
@@ -112,33 +109,33 @@ const borrarPadre = async (req, res = response) => {
       role,
       google,
       ...campos
-    } = req.body;
+    } = req.body
 
-    campos.activated = false;
+    campos.activated = false
     const padreActualizado = await Padre.findByIdAndUpdate(uid, campos, {
       new: true,
-    });
+    })
     res.json({
       ok: true,
       padreActualizado,
-    });
+    })
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
-      msg: "Hable con el administrador",
-    });
+      msg: 'Hable con el administrador',
+    })
   }
-};
+}
 const activarPadre = async (req, res = response) => {
-  const uid = req.params.id;
+  const uid = req.params.id
   try {
-    const padreDB = await Padre.findById(uid);
+    const padreDB = await Padre.findById(uid)
     if (!padreDB) {
       return res.status(404).json({
         ok: false,
-        msg: "No exite un padre",
-      });
+        msg: 'No exite un padre',
+      })
     }
 
     const {
@@ -151,48 +148,46 @@ const activarPadre = async (req, res = response) => {
       role,
       google,
       ...campos
-    } = req.body;
+    } = req.body
 
-    campos.activated = true;
+    campos.activated = true
     const padreActualizado = await Padre.findByIdAndUpdate(uid, campos, {
       new: true,
-    });
+    })
     res.json({
       ok: true,
       padreActualizado,
-    });
+    })
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
-      msg: "Hable con el administrador",
-    });
+      msg: 'Hable con el administrador',
+    })
   }
-};
+}
 
 const getPadreById = async (req, res = response) => {
-  const uid = req.params.id;
-  console.log("uid", uid);
+  const uid = req.params.id
   try {
-    const padreDB = await Padre.findById(uid);
-    console.log("padreDB", padreDB);
+    const padreDB = await Padre.findById(uid)
     if (!padreDB) {
       return res.status(404).json({
         ok: false,
-        msg: "No exite un padre",
-      });
+        msg: 'No exite un padre',
+      })
     }
     res.json({
       ok: true,
       padre: padreDB,
-    });
+    })
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: "Error inesperado",
-    });
+      msg: 'Error inesperado',
+    })
   }
-};
+}
 module.exports = {
   getPadres,
   crearPadre,
@@ -200,4 +195,4 @@ module.exports = {
   borrarPadre,
   activarPadre,
   getPadreById,
-};
+}

@@ -1,90 +1,90 @@
-const { response } = require("express");
-const bcrypt = require("bcryptjs");
-const Grado = require("../models/grado");
-const { generarJWT } = require("../helpers/jwt");
+const { response } = require('express')
+const bcrypt = require('bcryptjs')
+const Grado = require('../models/grado')
+const { generarJWT } = require('../helpers/jwt')
 //getGrados Grado
 const getGrados = async (req, res) => {
   const grados = await Grado.find(
     {},
-    "nombre clave img descripcion activated dateCreated lastEdited usuarioCreated "
-  );
+    'nombre clave img descripcion activated dateCreated lastEdited usuarioCreated ',
+  )
   res.json({
     ok: true,
     grados,
     uid: req.uid,
-  });
-};
+  })
+}
 
 //crearGrado Grado
 const crearGrado = async (req, res = response) => {
-  const { clave, nombre } = req.body;
-  const uid = req.uid;
+  const { clave, nombre } = req.body
+  const uid = req.uid
   const grado = new Grado({
     usuario: uid,
     ...req.body,
-  });
+  })
 
   try {
-    const existeClave = await Grado.findOne({ clave });
+    const existeClave = await Grado.findOne({ clave })
     if (existeClave) {
       return res.status(400).json({
         ok: false,
-        msg: "El grado ya está registrado",
-      });
+        msg: 'El grado ya está registrado',
+      })
     }
-    await grado.save();
+    await grado.save()
     res.json({
       ok: true,
       grado,
-    });
+    })
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
-      msg: "Error inesperado...  revisar logs",
-    });
+      msg: 'Error inesperado...  revisar logs',
+    })
   }
-};
+}
 
 //actualizarGrado Grado
 const actualizarGrado = async (req, res = response) => {
   //Validar token y comporbar si es el sgrado
 
-  const uid = req.params.id;
+  const uid = req.params.id
   try {
-    const gradoDB = await Grado.findById(uid);
+    const gradoDB = await Grado.findById(uid)
 
     if (!gradoDB) {
       return res.status(404).json({
         ok: false,
-        msg: "No exite un grado",
-      });
+        msg: 'No exite un grado',
+      })
     }
-    const { ...campos } = req.body;
+    const { ...campos } = req.body
     const gradoActualizado = await Grado.findByIdAndUpdate(uid, campos, {
       new: true,
-    });
+    })
     res.json({
       ok: true,
       gradoActualizado,
-    });
+    })
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
-      msg: "Error inesperado",
-    });
+      msg: 'Error inesperado',
+    })
   }
-};
+}
 const borrarGrado = async (req, res = response) => {
-  const uid = req.params.id;
+  const uid = req.params.id
   try {
-    const gradoDB = await Grado.findById(uid);
+    const gradoDB = await Grado.findById(uid)
     if (!gradoDB) {
       return res.status(404).json({
         ok: false,
-        msg: "No exite un grado",
-      });
+        msg: 'No exite un grado',
+      })
     }
 
     const {
@@ -97,33 +97,33 @@ const borrarGrado = async (req, res = response) => {
       role,
       google,
       ...campos
-    } = req.body;
+    } = req.body
 
-    campos.activated = false;
+    campos.activated = false
     const gradoActualizado = await Grado.findByIdAndUpdate(uid, campos, {
       new: true,
-    });
+    })
     res.json({
       ok: true,
       gradoActualizado,
-    });
+    })
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
-      msg: "Hable con el administrador",
-    });
+      msg: 'Hable con el administrador',
+    })
   }
-};
+}
 const activarGrado = async (req, res = response) => {
-  const uid = req.params.id;
+  const uid = req.params.id
   try {
-    const gradoDB = await Grado.findById(uid);
+    const gradoDB = await Grado.findById(uid)
     if (!gradoDB) {
       return res.status(404).json({
         ok: false,
-        msg: "No exite un grado",
-      });
+        msg: 'No exite un grado',
+      })
     }
 
     const {
@@ -136,47 +136,45 @@ const activarGrado = async (req, res = response) => {
       role,
       google,
       ...campos
-    } = req.body;
+    } = req.body
 
-    campos.activated = true;
+    campos.activated = true
     const gradoActualizado = await Grado.findByIdAndUpdate(uid, campos, {
       new: true,
-    });
+    })
     res.json({
       ok: true,
       gradoActualizado,
-    });
+    })
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
-      msg: "Hable con el administrador",
-    });
+      msg: 'Hable con el administrador',
+    })
   }
-};
+}
 const getGradosById = async (req, res = response) => {
-  const uid = req.params.uid;
-  console.log("uidsadsadsad", uid);
+  const uid = req.params.uid
   try {
-    const gradoDB = await Grado.findById(uid);
-    console.log("gradoDB", gradoDB);
+    const gradoDB = await Grado.findById(uid)
     if (!gradoDB) {
       return res.status(404).json({
         ok: false,
-        msg: "No exite un catalogo",
-      });
+        msg: 'No exite un catalogo',
+      })
     }
     res.json({
       ok: true,
       catalogo: gradoDB,
-    });
+    })
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: "Error inesperado",
-    });
+      msg: 'Error inesperado',
+    })
   }
-};
+}
 
 module.exports = {
   getGrados,
@@ -185,4 +183,4 @@ module.exports = {
   borrarGrado,
   activarGrado,
   getGradosById,
-};
+}

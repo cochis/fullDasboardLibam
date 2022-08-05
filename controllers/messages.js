@@ -20,7 +20,6 @@ const getMessages = async (req, res) => {
 //crearMessage Message
 const crearMessage = async (req, res = response) => {
   const { clave, nombre } = req.body
-  console.log('req.body', req.body)
   const uid = req.uid
   const message = new Message({
     de: uid,

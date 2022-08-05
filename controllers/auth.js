@@ -20,7 +20,6 @@ const login = async (req, res = response) => {
         msg: 'Usuario desactivado',
       })
     }
-    console.log('usuaridsadasoDB', usuarioDB)
 
     // Verificar contraseña
     const validPassword = bcrypt.compareSync(password, usuarioDB.password)

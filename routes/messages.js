@@ -2,9 +2,9 @@
 Ruta : api/messages
 */
 
-const { Router } = require("express");
-const { check } = require("express-validator");
-const { validarCampos } = require("../middlewares/validar-campos");
+const { Router } = require('express')
+const { check } = require('express-validator')
+const { validarCampos } = require('../middlewares/validar-campos')
 const {
   getMessages,
   crearMessage,
@@ -12,57 +12,55 @@ const {
   borrarMessage,
   activarMessage,
   getMessageById,
-  getAllMessages
-} = require("../controllers/messages");
-const { validarJWT } = require("../middlewares/validar-jwt");
-const router = Router();
+  getAllMessages,
+} = require('../controllers/messages')
+const { validarJWT } = require('../middlewares/validar-jwt')
+const router = Router()
 
-router.get("/", validarJWT, getMessages);
-router.get("/all", validarJWT, getAllMessages);
-router.get("/:uid", validarJWT, getMessageById);
+router.get('/', validarJWT, getMessages)
+router.get('/all', validarJWT, getAllMessages)
+router.get('/:uid', validarJWT, getMessageById)
 router.post(
-  "/",
+  '/',
   [
     validarJWT,
-    check("titulo", "El titulo es obligatorio").not().isEmpty(),
-    check("de", "Quien lo envia obligatorio").not().isEmpty(),
-    check("para", "El destinatario es obligatorio").not().isEmpty(),
-    check("mensaje", "El mensaje es obligatorio").not().isEmpty(),
+    check('titulo', 'El titulo es obligatorio').not().isEmpty(),
+    check('de', 'Quien lo envia obligatorio').not().isEmpty(),
+    check('para', 'El destinatario es obligatorio').not().isEmpty(),
+    check('mensaje', 'El mensaje es obligatorio').not().isEmpty(),
     validarCampos,
   ],
-  crearMessage
-);
+  crearMessage,
+)
 
 router.put(
-  "/:id",
+  '/:id',
   [
     validarJWT,
-    check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("clave", "La clave es obligatoria").not().isEmpty(),
-    check("descripcion", "La descripción es obligatoria").not().isEmpty(),
-    check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
+
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  actualizarMessage
-);
+  actualizarMessage,
+)
 
 router.put(
-  "/borrarMessage/:id",
+  '/borrarMessage/:id',
   [
     validarJWT,
-    check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  borrarMessage
-);
+  borrarMessage,
+)
 router.put(
-  "/activarMessage/:id",
+  '/activarMessage/:id',
   [
     validarJWT,
-    check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  activarMessage
-);
+  activarMessage,
+)
 
-module.exports = router;
+module.exports = router
