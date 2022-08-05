@@ -2,62 +2,64 @@
 Ruta : api/materias
 */
 
-const { Router } = require("express");
-const { check } = require("express-validator");
-const { validarCampos } = require("../middlewares/validar-campos");
+const { Router } = require('express')
+const { check } = require('express-validator')
+const { validarCampos } = require('../middlewares/validar-campos')
 const {
   getMaterias,
   crearMateria,
   actualizarMateria,
   borrarMateria,
   activarMateria,
-} = require("../controllers/materias");
-const { validarAdminJWT } = require("../middlewares/validar-jwt");
-const router = Router();
+  getMateriaById,
+} = require('../controllers/materias')
+const { validarAdminJWT } = require('../middlewares/validar-jwt')
+const router = Router()
 
-router.get("/", validarAdminJWT, getMaterias);
+router.get('/', validarAdminJWT, getMaterias)
+router.get('/:uid', validarAdminJWT, getMateriaById)
 router.post(
-  "/",
+  '/',
   [
     validarAdminJWT,
-    check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("clave", "La clave es obligatoria").not().isEmpty(),
-    check("descripcion", "La descripción es obligatoria").not().isEmpty(),
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('clave', 'La clave es obligatoria').not().isEmpty(),
+    check('descripcion', 'La descripción es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  crearMateria
-);
+  crearMateria,
+)
 
 router.put(
-  "/:id",
+  '/:id',
   [
     validarAdminJWT,
-    check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("clave", "La clave es obligatoria").not().isEmpty(),
-    check("descripcion", "La descripción es obligatoria").not().isEmpty(),
-    check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('clave', 'La clave es obligatoria').not().isEmpty(),
+    check('descripcion', 'La descripción es obligatoria').not().isEmpty(),
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  actualizarMateria
-);
+  actualizarMateria,
+)
 
 router.put(
-  "/borrarMateria/:id",
+  '/borrarMateria/:id',
   [
     validarAdminJWT,
-    check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  borrarMateria
-);
+  borrarMateria,
+)
 router.put(
-  "/activarMateria/:id",
+  '/activarMateria/:id',
   [
     validarAdminJWT,
-    check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  activarMateria
-);
+  activarMateria,
+)
 
-module.exports = router;
+module.exports = router

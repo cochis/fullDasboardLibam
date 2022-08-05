@@ -2,62 +2,64 @@
 Ruta : api/ciclos
 */
 
-const { Router } = require("express");
-const { check } = require("express-validator");
-const { validarCampos } = require("../middlewares/validar-campos");
+const { Router } = require('express')
+const { check } = require('express-validator')
+const { validarCampos } = require('../middlewares/validar-campos')
 const {
   getCiclos,
   crearCiclo,
   actualizarCiclo,
   borrarCiclo,
   activarCiclo,
-} = require("../controllers/ciclos");
-const { validarAdminJWT } = require("../middlewares/validar-jwt");
-const router = Router();
+  getCicloById,
+} = require('../controllers/ciclos')
+const { validarAdminJWT } = require('../middlewares/validar-jwt')
+const router = Router()
 
-router.get("/", validarAdminJWT, getCiclos);
+router.get('/', validarAdminJWT, getCiclos)
+router.get('/:uid', validarAdminJWT, getCicloById)
 router.post(
-  "/",
+  '/',
   [
     validarAdminJWT,
-    check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("clave", "La clave es obligatoria").not().isEmpty(),
-    check("descripcion", "La descripción es obligatoria").not().isEmpty(),
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('clave', 'La clave es obligatoria').not().isEmpty(),
+    check('descripcion', 'La descripción es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  crearCiclo
-);
+  crearCiclo,
+)
 
 router.put(
-  "/:id",
+  '/:id',
   [
     validarAdminJWT,
-    check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("clave", "La clave es obligatoria").not().isEmpty(),
-    check("descripcion", "La descripción es obligatoria").not().isEmpty(),
-    check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('clave', 'La clave es obligatoria').not().isEmpty(),
+    check('descripcion', 'La descripción es obligatoria').not().isEmpty(),
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  actualizarCiclo
-);
+  actualizarCiclo,
+)
 
 router.put(
-  "/borrarCiclo/:id",
+  '/borrarCiclo/:id',
   [
     validarAdminJWT,
-    check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  borrarCiclo
-);
+  borrarCiclo,
+)
 router.put(
-  "/activarCiclo/:id",
+  '/activarCiclo/:id',
   [
     validarAdminJWT,
-    check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  activarCiclo
-);
+  activarCiclo,
+)
 
-module.exports = router;
+module.exports = router

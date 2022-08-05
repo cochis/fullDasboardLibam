@@ -214,6 +214,7 @@ const getAllMessages = async (req, res) => {
         'nombre email activated dateCreated lastEdited img google password usuarioCreated apellidoPaterno apellidoMaterno role uid ',
       )
       .populate('para', 'nombre apellidoPaterno  apellidoMaterno uid usuario ')
+      .populate('ciclo', 'nombre clave  activated uid  ')
       .sort({ dateCreated: -1 }),
     Message.countDocuments(),
   ])
