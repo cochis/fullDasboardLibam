@@ -10,8 +10,8 @@ const getPagosCiclos = async (req, res) => {
   )
 
     .populate('alumno', 'nombre  apellidoPaterno  apellidoMaterno clave uid')
-    .populate('curso', 'nombre  uid')
-    .populate('ciclo', 'nombre  uid')
+    .populate('curso', 'nombre clave uid')
+    .populate('ciclo', 'nombre clave uid')
   res.json({
     ok: true,
     pagosCiclos,
@@ -164,7 +164,7 @@ const getCicloByAlumno = async (req, res) => {
     res.status(500).json({
       ok: false,
       error,
-      msg: 'Error inesperasdo',
+      msg: 'Error inesperado',
     })
   }
 }
@@ -188,7 +188,7 @@ const getCicloByCiclo = async (req, res) => {
     res.status(500).json({
       ok: false,
       error,
-      msg: 'Error inesperasdo',
+      msg: 'Error inesperado',
     })
   }
 }
@@ -212,7 +212,7 @@ const getCicloByCurso = async (req, res) => {
     res.status(500).json({
       ok: false,
       error,
-      msg: 'Error inesperasdo',
+      msg: 'Error inesperado',
     })
   }
 }
@@ -222,8 +222,8 @@ const getPagosCiclosById = async (req, res) => {
   try {
     const cicloDB = await PagosCiclo.findById(uid)
       .populate('alumno', 'nombre  apellidoPaterno  apellidoMaterno clave uid')
-      .populate('curso', 'nombre  uid')
-      .populate('ciclo', 'nombre  uid')
+      .populate('curso', 'nombre  clave uid')
+      .populate('ciclo', 'nombre clave uid')
     if (!cicloDB) {
       return res.status(404).json({
         ok: false,
