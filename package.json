@@ -17,6 +17,7 @@
     "express": "^4.18.1",
     "express-fileupload": "^1.4.0",
     "express-validator": "^6.14.2",
+    "fs": "0.0.1-security",
     "google-auth-library": "^8.1.0",
     "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
