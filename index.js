@@ -5,11 +5,17 @@ const { dbConnection } = require('./database/config')
 const path = require('path')
 // Crear el servidor de express
 const app = express()
-
+var https = require('https')
+var fs = require('fs')
 // Configurar CORS
 app.use(cors())
 
-var whitelist = ['http://localhost', 'http://localhost:3000']
+var whitelist = [
+  'http://localhost',
+  'http://localhost:3000',
+  'https://localhost',
+  'https://localhost:3000',
+]
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -55,12 +61,20 @@ app.use('/api/messages', require('./routes/messages'))
 app.get('*', function (req, res, next) {
   res.sendFile(path.resolve('client/index.html'))
 })
-app.listen(process.env.PORT, () => {
-  console.log(
-    '__________________________________________________________________________________________________',
+https
+  .createServer(
+    {
+      cert: fs.readFileSync('/etc/letsencrypt/live/mylibam.com/fullchain.pem'),
+      key: fs.readFileSync('/etc/letsencrypt/live/mylibam.com/privkey.pem'),
+    },
+    app,
   )
-  console.log(
-    '__________________________________________________________________________________________________',
-  )
-  console.log('Servidor corriendo en puerto ' + process.env.PORT)
-})
+  .listen(process.env.PORT, () => {
+    console.log(
+      '__________________________________________________________________________________________________',
+    )
+    console.log(
+      '__________________________________________________________________________________________________',
+    )
+    console.log('Servidor corriendo en puerto ' + process.env.PORT)
+  })
