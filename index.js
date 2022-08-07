@@ -10,23 +10,6 @@ const app = express()
 
 // Configurar CORS
 app.use(cors())
-
-var whitelist = [
-  'http://localhost',
-  'http://localhost:3000',
-  'https://localhost',
-  'https://localhost:3000',
-]
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
-}
-
 //Carpeta publoc
 
 app.use('/', express.static('client', { redirect: false }))
