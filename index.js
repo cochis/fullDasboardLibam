@@ -12,9 +12,9 @@ const app = express()
 app.use(cors())
 //Carpeta publoc
 
-app.use('/', express.static('client', { redirect: false }))
+// app.use('/', express.static('client', { redirect: false }))
 
-app.use(express.static('public'))
+// app.use(express.static('public'))
 
 //lectura y paseo del body
 app.use(express.json())
