@@ -57,8 +57,8 @@ app.listen(process.env.PORT, () => {
 // https
 //   .createServer(
 //     {
-//       cert: fs.readFileSync('./mylibam.com.csr'),
-//       key: fs.readFileSync('./mylibam.com.csr'),
+//       cert: fs.readFileSync('/etc/letsencrypt/live/mylibam.com/fullchain.pem'),
+//       key: fs.readFileSync('/etc/letsencrypt/live/mylibam.com/privkey.pem'),
 //     },
 //     app,
 //   )
