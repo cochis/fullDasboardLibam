@@ -12,7 +12,7 @@ const app = express()
 app.use(cors())
 //Carpeta publoc
 
-app.use('/home', express.static('client', { redirect: false }))
+app.use('/', express.static('client', { redirect: false }))
 
 app.use(express.static('public'))
 
