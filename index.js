@@ -54,20 +54,3 @@ app.listen(process.env.PORT, () => {
   )
   console.log('Servidor corriendo en puerto ' + process.env.PORT)
 })
-// https
-//   .createServer(
-//     {
-//       cert: fs.readFileSync('/etc/letsencrypt/live/mylibam.com/fullchain.pem'),
-//       key: fs.readFileSync('/etc/letsencrypt/live/mylibam.com/privkey.pem'),
-//     },
-//     app,
-//   )
-//   .listen(process.env.PORT, () => {
-//     console.log(
-//       '__________________________________________________________________________________________________',
-//     )
-//     console.log(
-//       '__________________________________________________________________________________________________',
-//     )
-//     console.log('Servidor corriendo en puerto ' + process.env.PORT)
-//   })
