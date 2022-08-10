@@ -11,11 +11,7 @@ const app = express()
 // Configurar CORS
 app.use(cors())
 //Carpeta publoc
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
-  next()
-})
+
 app.use('/', express.static('client', { redirect: false }))
 
 app.use(express.static('public'))
@@ -46,9 +42,9 @@ app.use('/api/login', require('./routes/auth'))
 app.use('/api/search', require('./routes/busquedas'))
 app.use('/api/upload', require('./routes/uploads'))
 app.use('/api/messages', require('./routes/messages'))
-app.get('*', function (req, res, next) {
-  res.sendFile(path.resolve('client/index.html'))
-})
+// app.get('*', function (req, res, next) {
+//   res.sendFile(path.resolve('client/index.html'))
+// })
 app.listen(process.env.PORT, () => {
   console.log(
     '__________________________________________________________________________________________________',
