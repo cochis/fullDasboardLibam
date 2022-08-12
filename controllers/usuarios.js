@@ -108,6 +108,11 @@ const actualizarUsuario = async (req, res = response) => {
       })
     }
     campos.email = undefined
+    if (password !== '' && password !== null) {
+      const salt = bcrypt.genSaltSync()
+      campos.password = bcrypt.hashSync(password, salt)
+    }
+
     const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, {
       new: true,
     })

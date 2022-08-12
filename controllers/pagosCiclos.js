@@ -1,6 +1,7 @@
 const { response } = require('express')
 const bcrypt = require('bcryptjs')
 const PagosCiclo = require('../models/pagosCiclo')
+const PagosPorCiclo = require('../models/pagosPorCiclo')
 const { generarJWT } = require('../helpers/jwt')
 // PagosCiclo
 const getPagosCiclos = async (req, res) => {
@@ -65,10 +66,54 @@ const actualizarPagosCiclos = async (req, res = response) => {
         new: true,
       },
     )
-    res.json({
-      ok: true,
-      pagosCicloActualizado,
-    })
+    const querty = { ciclo: campos.cicloPagado }
+    const pagosPorCiclo = await PagosPorCiclo.findOne(querty)
+    if (pagosPorCiclo) {
+      let pagoAgregado = {
+        fechaPago: Date.now(),
+        alumno: campos.alumno,
+        referencia: campos.referenciaPagada,
+        cantidad: campos.cantidadPagada,
+      }
+      pagosPorCiclo.pagos = [...pagosPorCiclo.pagos, pagoAgregado]
+      var newvalues = { $set: { pagos: pagosPorCiclo.pagos } }
+      const pagosPorCicloActualizado = await PagosPorCiclo.updateOne(
+        querty,
+        newvalues,
+      )
+      res.json({
+        ok: true,
+        pagosCicloActualizado,
+      })
+    } else {
+      let pago = {
+        ciclo: campos.cicloPagado,
+        pagos: [
+          {
+            fechaPago: Date.now(),
+            alumno: campos.alumno,
+            referencia: campos.referenciaPagada,
+            cantidad: campos.cantidadPagada,
+          },
+        ],
+        activated: true,
+        dateCreated: Date.now(),
+        lastEdited: Date.now(),
+        usuarioCreated: uid,
+      }
+
+      const pagosPorCiclo = new PagosPorCiclo({
+        usuario: uid,
+        ...pago,
+      })
+
+      await pagosPorCiclo.save()
+
+      res.json({
+        ok: true,
+        pagosCicloActualizado,
+      })
+    }
   } catch (error) {
     console.log('error', error)
     res.status(500).json({
