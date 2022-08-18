@@ -59,6 +59,7 @@ const actualizarPagosCiclos = async (req, res = response) => {
       })
     }
     const { ...campos } = req.body
+
     const pagosCicloActualizado = await PagosCiclo.findByIdAndUpdate(
       uid,
       campos,
@@ -67,6 +68,9 @@ const actualizarPagosCiclos = async (req, res = response) => {
       },
     )
     const querty = { ciclo: campos.cicloPagado }
+    if (campos.cantidadRestada !== 0) {
+      campos.cantidadPagada = -campos.cantidadRestada
+    }
     const pagosPorCiclo = await PagosPorCiclo.findOne(querty)
     if (pagosPorCiclo) {
       let pagoAgregado = {
