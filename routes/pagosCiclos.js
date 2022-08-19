@@ -9,6 +9,7 @@ const {
   getPagosCiclos,
   crearPagosCiclos,
   actualizarPagosCiclos,
+  actualizarFacturaPagosCiclos,
   borrarPagosCiclos,
   activarPagosCiclos,
   getCicloByAlumno,
@@ -45,6 +46,18 @@ router.put(
     validarCampos,
   ],
   actualizarPagosCiclos,
+)
+router.put(
+  '/facturar/:id',
+  [
+    validarAdminJWT,
+    check('alumno', 'El alumno es obligatorio').not().isEmpty(),
+    check('ciclo', 'El ciclo es obligatorio').not().isEmpty(),
+    check('curso', 'El curso es obligatorio').not().isEmpty(),
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
+    validarCampos,
+  ],
+  actualizarFacturaPagosCiclos,
 )
 
 router.put(

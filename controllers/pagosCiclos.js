@@ -76,6 +76,9 @@ const actualizarPagosCiclos = async (req, res = response) => {
       let pagoAgregado = {
         fechaPago: Date.now(),
         alumno: campos.alumno,
+        ciclo: campos.ciclo,
+        facturar: campos.facturar,
+        facturado: false,
         referencia: campos.referenciaPagada,
         cantidad: campos.cantidadPagada,
       }
@@ -96,6 +99,9 @@ const actualizarPagosCiclos = async (req, res = response) => {
           {
             fechaPago: Date.now(),
             alumno: campos.alumno,
+            ciclo: campos.ciclo,
+            facturar: campos.facturar,
+            facturado: false,
             referencia: campos.referenciaPagada,
             cantidad: campos.cantidadPagada,
           },
@@ -118,6 +124,40 @@ const actualizarPagosCiclos = async (req, res = response) => {
         pagosCicloActualizado,
       })
     }
+  } catch (error) {
+    console.log('error', error)
+    res.status(500).json({
+      ok: false,
+      msg: 'Error inesperado',
+    })
+  }
+}
+const actualizarFacturaPagosCiclos = async (req, res = response) => {
+  //Validar token y comporbar si es el spagosCiclo
+
+  const uid = req.params.id
+  try {
+    const pagosCicloDB = await PagosCiclo.findById(uid)
+
+    if (!pagosCicloDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'No exite un pagosCiclo',
+      })
+    }
+    const { ...campos } = req.body
+
+    const pagosCicloActualizado = await PagosCiclo.findByIdAndUpdate(
+      uid,
+      campos,
+      {
+        new: true,
+      },
+    )
+    res.json({
+      ok: true,
+      pagosCicloActualizado,
+    })
   } catch (error) {
     console.log('error', error)
     res.status(500).json({
@@ -295,6 +335,7 @@ module.exports = {
   getPagosCiclos,
   crearPagosCiclos,
   actualizarPagosCiclos,
+  actualizarFacturaPagosCiclos,
   borrarPagosCiclos,
   activarPagosCiclos,
   getCicloByAlumno,
