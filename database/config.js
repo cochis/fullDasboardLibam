@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
 dbConnection().catch((err) => console.log(err))
-
+const dbName = 'Libam'
 async function dbConnection() {
   try {
-    console.log('process.env.DB_CNNLocal', process.env.DB_CNNLocal)
-    await mongoose.connect(process.env.DB_CNNLocal)
+    await mongoose.connect(process.env.DB_CNNLocal, { dbName: 'Libam' })
     // await mongoose.connect(process.env.DB_CNN)
 
     console.log('DB Online')
