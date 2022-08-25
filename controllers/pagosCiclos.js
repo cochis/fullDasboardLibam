@@ -47,8 +47,6 @@ const crearPagosCiclos = async (req, res = response) => {
 //actualizarPagosCiclo PagosCiclo
 const actualizarPagosCiclos = async (req, res = response) => {
   //Validar token y comporbar si es el spagosCiclo
-  console.log('req', req.body.pagos)
-
   const uid = req.params.id
   try {
     const pagosCicloDB = await PagosCiclo.findById(uid)
@@ -73,7 +71,6 @@ const actualizarPagosCiclos = async (req, res = response) => {
       campos.cantidadPagada = -campos.cantidadRestada
     }
     const pagosPorCiclo = await PagosPorCiclo.findOne(querty)
-    console.log('pagosPorCiclo', pagosPorCiclo)
     if (pagosPorCiclo) {
       let pagoAgregado = {
         fechaPago: Date.now(),
