@@ -58,7 +58,6 @@ const actualizarPagosCiclos = async (req, res = response) => {
       })
     }
     const { ...campos } = req.body
-
     const pagosCicloActualizado = await PagosCiclo.findByIdAndUpdate(
       uid,
       campos,
