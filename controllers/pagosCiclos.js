@@ -244,7 +244,7 @@ const getCicloByAlumno = async (req, res) => {
     }
     res.json({
       ok: true,
-      pagosCiclo: cicloDB,
+      pagosCiclos: cicloDB,
     })
   } catch (error) {
     console.log('error', error)
