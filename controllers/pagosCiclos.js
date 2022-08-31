@@ -72,10 +72,10 @@ const actualizarPagosCiclos = async (req, res = response) => {
     const pagosPorCiclo = await PagosPorCiclo.findOne(querty)
     if (pagosPorCiclo) {
       let pagoAgregado = {
-        fechaPago: Date.now(),
+        fechaPago: campos.fechaPago,
         alumno: campos.alumno,
         ciclo: campos.ciclo,
-        facturar: campos.facturar,
+        facturar: !campos.facturar ? false : true,
         facturado: false,
         referencia: campos.referenciaPagada,
         cantidad: campos.cantidadPagada,
@@ -95,7 +95,7 @@ const actualizarPagosCiclos = async (req, res = response) => {
         ciclo: campos.cicloPagado,
         pagos: [
           {
-            fechaPago: Date.now(),
+            fechaPago: campos.fechaPago,
             alumno: campos.alumno,
             ciclo: campos.ciclo,
             facturar: campos.facturar,
@@ -328,6 +328,29 @@ const getPagosCiclosById = async (req, res) => {
     })
   }
 }
+const borrarCiclosById = async (req, res) => {
+  const id = req.params.id
+  console.log('id', id)
+  try {
+    const cicloDB = await PagosCiclo.findById(id)
+    if (!cicloDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'No exite tarjeta de pago',
+      })
+    }
+    await PagosCiclo.findByIdAndDelete(id)
+    res.json({
+      ok: true,
+      msg: 'Tarjeta eliminada ',
+    })
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: 'Error inesperado',
+    })
+  }
+}
 
 module.exports = {
   getPagosCiclos,
@@ -340,4 +363,5 @@ module.exports = {
   getCicloByCiclo,
   getCicloByCurso,
   getPagosCiclosById,
+  borrarCiclosById,
 }

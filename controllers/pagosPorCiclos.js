@@ -4,7 +4,10 @@ const PagoPorCiclo = require('../models/pagosPorCiclo')
 const { generarJWT } = require('../helpers/jwt')
 //getpagoPorCiclos pagoPorCiclo
 const getPagoPorCiclos = async (req, res) => {
-  const pagoPorCiclos = await PagoPorCiclo.find({})
+  const pagoPorCiclos = await PagoPorCiclo.find({}).populate(
+    'ciclo',
+    'uid nombre clave',
+  )
   res.json({
     ok: true,
     pagoPorCiclos,

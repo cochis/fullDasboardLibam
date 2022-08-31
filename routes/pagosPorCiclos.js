@@ -32,18 +32,7 @@ router.post(
   crearPagoPorCiclo,
 )
 
-router.put(
-  '/:id',
-  [
-    validarAdminJWT,
-    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-    check('clave', 'La clave es obligatoria').not().isEmpty(),
-    check('descripcion', 'La descripcion es obligatoria').not().isEmpty(),
-    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
-    validarCampos,
-  ],
-  actualizarPagoPorCiclo,
-)
+router.put('/:id', validarAdminJWT, actualizarPagoPorCiclo)
 
 router.put(
   '/borrarPago/:id',

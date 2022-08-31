@@ -16,6 +16,7 @@ const {
   getCicloByCiclo,
   getCicloByCurso,
   getPagosCiclosById,
+  borrarCiclosById,
 } = require('../controllers/pagosCiclos')
 const { validarAdminJWT } = require('../middlewares/validar-jwt')
 const router = Router()
@@ -59,6 +60,18 @@ router.put(
   ],
   actualizarFacturaPagosCiclos,
 )
+router.put(
+  '/actualizarPagos/:id',
+  [
+    validarAdminJWT,
+    check('alumno', 'El alumno es obligatorio').not().isEmpty(),
+    check('ciclo', 'El ciclo es obligatorio').not().isEmpty(),
+    check('curso', 'El curso es obligatorio').not().isEmpty(),
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
+    validarCampos,
+  ],
+  actualizarFacturaPagosCiclos,
+)
 
 router.put(
   '/borrarPagosCiclos/:id',
@@ -69,6 +82,8 @@ router.put(
   ],
   borrarPagosCiclos,
 )
+router.get('/eliminarPagosCiclos/:id', validarAdminJWT, borrarCiclosById)
+
 router.put(
   '/activarPagosCiclos/:id',
   [
