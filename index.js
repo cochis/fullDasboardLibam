@@ -24,6 +24,7 @@ dbConnection()
 // Rutas
 app.use('/api/usuarios', require('./routes/usuarios'))
 app.use('/api/ciclos', require('./routes/ciclos'))
+app.use('/api/catalogos', require('./routes/catalogos'))
 app.use('/api/transaccions', require('./routes/transaccions'))
 app.use('/api/transaccions', require('./routes/transaccions'))
 app.use('/api/grados', require('./routes/grados'))

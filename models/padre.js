@@ -1,8 +1,8 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose')
 const PadreSchema = Schema({
   hijo: {
     type: Schema.Types.ObjectId,
-    ref: "Alumno",
+    ref: 'Alumno',
     required: true,
   },
   titular: {
@@ -76,7 +76,7 @@ const PadreSchema = Schema({
   },
   parentesco: {
     type: Schema.Types.ObjectId,
-    ref: "Parentesco",
+    ref: 'Catalogo',
   },
   notas: {
     type: String,
@@ -97,13 +97,13 @@ const PadreSchema = Schema({
   },
   usuarioCreated: {
     type: Schema.Types.ObjectId,
-    ref: "Usuario",
+    ref: 'Usuario',
   },
-});
+})
 
-PadreSchema.method("toJSON", function () {
-  const { __v, _id, ...object } = this.toObject();
-  object.uid = _id;
-  return object;
-});
-module.exports = model("Padre", PadreSchema);
+PadreSchema.method('toJSON', function () {
+  const { __v, _id, ...object } = this.toObject()
+  object.uid = _id
+  return object
+})
+module.exports = model('Padre', PadreSchema)

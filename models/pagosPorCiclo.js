@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose')
 const PagosPorCicloSchema = Schema({
   ciclo: {
     type: Schema.Types.ObjectId,
-    ref: 'Ciclo',
+    ref: 'Catalogo',
   },
   pagos: [
     {

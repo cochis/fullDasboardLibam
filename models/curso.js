@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose')
 const CursoSchema = Schema({
   nombre: {
     type: String,
@@ -11,30 +11,30 @@ const CursoSchema = Schema({
   ciclo: {
     required: true,
     type: Schema.Types.ObjectId,
-    ref: "Ciclo",
+    ref: 'Catalogo',
   },
   grado: {
     required: true,
     type: Schema.Types.ObjectId,
-    ref: "Grado",
+    ref: 'Catalogo',
   },
   grupo: {
     required: true,
     type: Schema.Types.ObjectId,
-    ref: "Grupo",
+    ref: 'Grupo',
   },
   alumnos: [
     {
       required: true,
       type: Schema.Types.ObjectId,
-      ref: "Alumno",
+      ref: 'Alumno',
     },
   ],
   maestros: [
     {
       required: true,
       type: Schema.Types.ObjectId,
-      ref: "Maestro",
+      ref: 'Maestro',
     },
   ],
   activated: {
@@ -53,13 +53,13 @@ const CursoSchema = Schema({
   },
   usuarioCreated: {
     type: Schema.Types.ObjectId,
-    ref: "Usuario",
+    ref: 'Usuario',
   },
-});
+})
 
-CursoSchema.method("toJSON", function () {
-  const { __v, _id, ...object } = this.toObject();
-  object.uid = _id;
-  return object;
-});
-module.exports = model("Curso", CursoSchema);
+CursoSchema.method('toJSON', function () {
+  const { __v, _id, ...object } = this.toObject()
+  object.uid = _id
+  return object
+})
+module.exports = model('Curso', CursoSchema)

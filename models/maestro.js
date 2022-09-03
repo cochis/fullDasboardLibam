@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose')
 const MaestroSchema = Schema({
   nombre: {
     type: String,
@@ -18,7 +18,7 @@ const MaestroSchema = Schema({
   },
   sexo: {
     type: Schema.Types.ObjectId,
-    ref: "Sexo",
+    ref: 'Catalogo',
     required: true,
   },
   fechaNacimiento: {
@@ -47,7 +47,7 @@ const MaestroSchema = Schema({
   },
   tipoSanguineo: {
     type: Schema.Types.ObjectId,
-    ref: "TipoSanguineo",
+    ref: 'Catalogo',
   },
   telefonoCasa: {
     type: Number,
@@ -103,13 +103,13 @@ const MaestroSchema = Schema({
   materias: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Materia",
+      ref: 'Catalogo',
     },
   ],
   grados: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Grado",
+      ref: 'Catalogo',
     },
   ],
   img: {
@@ -118,25 +118,24 @@ const MaestroSchema = Schema({
   documentosEntregados: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Documento",
+      ref: 'Catalogo',
     },
   ],
   currentCurso: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Curso",
+      ref: 'Curso',
     },
   ],
 
   notas: {
     type: String,
   },
-    usuario: 
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Usuario",
-    },
-  
+  usuario: {
+    type: Schema.Types.ObjectId,
+    ref: 'Usuario',
+  },
+
   activated: {
     type: Boolean,
     default: false,
@@ -153,13 +152,13 @@ const MaestroSchema = Schema({
   },
   usuarioCreated: {
     type: Schema.Types.ObjectId,
-    ref: "Usuario",
+    ref: 'Usuario',
   },
-});
+})
 
-MaestroSchema.method("toJSON", function () {
-  const { __v, _id, ...object } = this.toObject();
-  object.uid = _id;
-  return object;
-});
-module.exports = model("Maestro", MaestroSchema);
+MaestroSchema.method('toJSON', function () {
+  const { __v, _id, ...object } = this.toObject()
+  object.uid = _id
+  return object
+})
+module.exports = model('Maestro', MaestroSchema)
