@@ -24,7 +24,7 @@ const AlumnoSchema = Schema({
   },
   sexo: {
     type: Schema.Types.ObjectId,
-    ref: 'Sexo',
+    ref: 'Catalogo',
     required: true,
   },
   fechaNacimiento: {
@@ -51,7 +51,7 @@ const AlumnoSchema = Schema({
   },
   tipoSanguineo: {
     type: Schema.Types.ObjectId,
-    ref: 'TipoSanguineo',
+    ref: 'Catalogo',
     required: true,
   },
   telefono: {
@@ -80,13 +80,13 @@ const AlumnoSchema = Schema({
   },
   grado: {
     type: Schema.Types.ObjectId,
-    ref: 'Grado',
+    ref: 'Catalogo',
     required: true,
   },
   documentosEntregados: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Documento',
+      ref: 'Catalogo',
       required: true,
       default: '',
     },
