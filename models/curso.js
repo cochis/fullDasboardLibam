@@ -21,7 +21,7 @@ const CursoSchema = Schema({
   grupo: {
     required: true,
     type: Schema.Types.ObjectId,
-    ref: 'Grupo',
+    ref: 'Catalogo',
   },
   alumnos: [
     {
