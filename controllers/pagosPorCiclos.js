@@ -130,7 +130,7 @@ const activarPagoPorCiclo = async (req, res = response) => {
     if (!pagoPorCicloDB) {
       return res.status(404).json({
         ok: false,
-        msg: 'No exite un pagoPorCiclo',
+        msg: 'No exite un  pagoPorCiclo',
       })
     }
 

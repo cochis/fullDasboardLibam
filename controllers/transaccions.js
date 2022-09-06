@@ -6,7 +6,7 @@ const { generarJWT } = require('../helpers/jwt')
 const getTransaccions = async (req, res) => {
   const transaccions = await Transaccion.find(
     {},
-    'folio fechaExpedicion lugarExpedicion alumno descripcion precio metodoPago activated dateCreated lastEdited uid ',
+    'folio fechaExpedicion  lugarExpedicion alumno descripcion precio metodoPago activated dateCreated lastEdited uid ',
   )
     .populate('alumno', 'nombre  apellidoPaterno  apellidoMaterno clave uid')
     .sort({ dateCreated: 1 })

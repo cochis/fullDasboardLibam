@@ -29,7 +29,7 @@ const crearTipoTransaccion = async (req, res = response) => {
     if (existeClave) {
       return res.status(400).json({
         ok: false,
-        msg: 'El tipoTransaccion ya está registrado',
+        msg: 'El tipoTransaccion  ya está registrado',
       })
     }
     await tipoTransaccion.save()

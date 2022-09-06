@@ -308,7 +308,7 @@ const getPagosCiclosById = async (req, res) => {
   const uid = req.params.uid
   try {
     const cicloDB = await PagosCiclo.findById(uid)
-      .populate('alumno', 'nombre  apellidoPaterno  apellidoMaterno clave uid')
+      .populate('alumno', ' nombre  apellidoPaterno  apellidoMaterno clave uid')
       .populate('curso', 'nombre  clave uid')
       .populate('ciclo', 'nombre clave uid')
     if (!cicloDB) {
