@@ -7,7 +7,9 @@ const getTransaccions = async (req, res) => {
   const transaccions = await Transaccion.find(
     {},
     'folio fechaExpedicion lugarExpedicion alumno descripcion precio metodoPago activated dateCreated lastEdited uid ',
-  ).populate('alumno', 'nombre  apellidoPaterno  apellidoMaterno clave uid')
+  )
+    .populate('alumno', 'nombre  apellidoPaterno  apellidoMaterno clave uid')
+    .sort({ dateCreated: 1 })
   res.json({
     ok: true,
     transaccions,
@@ -17,7 +19,7 @@ const getTransaccions = async (req, res) => {
 const getTransaccionById = async (req, res) => {
   const uid = req.params.uid
   try {
-    const transaccionDB = await Transaccion.findById(uid)
+    const transaccionDB = await Transaccion.findById(uid).populate('alumno')
     if (!transaccionDB) {
       return res.status(404).json({
         ok: false,
@@ -43,11 +45,8 @@ const crearTransaccion = async (req, res = response) => {
     usuario: uid,
     ...req.body,
   })
-  console.log('transaccion', transaccion)
   try {
     const count = await Transaccion.count()
-    console.log('count', count)
-    console.log('count1', count + 1)
     transaccion.folio = count + 1
     await transaccion.save()
 

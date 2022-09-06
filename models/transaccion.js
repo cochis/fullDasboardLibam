@@ -19,9 +19,9 @@ const TransaccionSchema = Schema({
   },
 
   alumno: {
+    required: true,
     type: Schema.Types.ObjectId,
     ref: 'Alumno',
-    required: true,
   },
   descripcion: {
     type: String,
