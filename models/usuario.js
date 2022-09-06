@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose')
 const UsuarioSchema = Schema({
   nombre: {
     type: String,
@@ -9,6 +9,9 @@ const UsuarioSchema = Schema({
     required: true,
   },
   apellidoMaterno: {
+    type: String,
+  },
+  clave: {
     type: String,
   },
 
@@ -26,7 +29,7 @@ const UsuarioSchema = Schema({
   role: {
     type: String,
     required: true,
-    default: "USER_ROLE",
+    default: 'USER_ROLE',
   },
   google: {
     type: Boolean,
@@ -48,13 +51,13 @@ const UsuarioSchema = Schema({
   },
   usuarioCreated: {
     type: Schema.Types.ObjectId,
-    ref: "Usuario",
+    ref: 'Usuario',
   },
-});
+})
 
-UsuarioSchema.method("toJSON", function () {
-  const { __v, _id, password, ...object } = this.toObject();
-  object.uid = _id;
-  return object;
-});
-module.exports = model("Usuario", UsuarioSchema);
+UsuarioSchema.method('toJSON', function () {
+  const { __v, _id, password, ...object } = this.toObject()
+  object.uid = _id
+  return object
+})
+module.exports = model('Usuario', UsuarioSchema)

@@ -9,7 +9,7 @@ const getUsuarios = async (req, res) => {
   const [usuarios, total] = await Promise.all([
     Usuario.find(
       {},
-      'nombre apellidoPaterno apellidoMaterno email activated dateCreated lastEdited role google usuarioCreated img',
+      'nombre apellidoPaterno apellidoMaterno clave email activated dateCreated lastEdited role google usuarioCreated img',
     )
       .sort({ nombre: 1 })
       .populate('usuarioCreated', 'nombre , email')
@@ -29,7 +29,7 @@ const getAllUsuarios = async (req, res) => {
   const [usuarios, total] = await Promise.all([
     Usuario.find(
       {},
-      'nombre apellidoPaterno apellidoMaterno email activated dateCreated lastEdited role google usuarioCreated img',
+      'nombre apellidoPaterno apellidoMaterno clave email activated dateCreated lastEdited role google usuarioCreated img',
     )
       .sort({ nombre: 1 })
       .populate('usuarioCreated', 'nombre , email'),
@@ -143,6 +143,7 @@ const borrarUsuario = async (req, res = response) => {
       nombre,
       apellidoPaterno,
       apellidoMaterno,
+      clave,
       email,
       password,
       img,
@@ -182,6 +183,7 @@ const activarUsuario = async (req, res = response) => {
       nombre,
       apellidoPaterno,
       apellidoMaterno,
+      clave,
       email,
       password,
       img,
