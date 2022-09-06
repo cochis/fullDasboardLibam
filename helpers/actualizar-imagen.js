@@ -5,6 +5,7 @@ const Alumno = require('../models/alumno')
 const Curso = require('../models/curso')
 const Padre = require('../models/padre')
 const Grupo = require('../models/grupo')
+const Tutorial = require('../models/tutorial')
 
 const borrarImagen = (path) => {
   if (fs.existsSync(path)) {
@@ -80,7 +81,17 @@ const actualizarImagen = async (tipo, id, nombreArchivo) => {
       await curso.save()
       return true
       break
-
+    case 'tutoriales':
+      const tutorial = await Tutorial.findById(id)
+      if (!tutorial) {
+        return false
+      }
+      pathViejo = `./uploads/tutoriales/${tutorial.archivo}`
+      borrarImagen(pathViejo)
+      tutorial.archivo = nombreArchivo
+      await tutorial.save()
+      return true
+      break
     default:
       break
   }

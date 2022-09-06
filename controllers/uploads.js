@@ -6,7 +6,14 @@ const { actualizarImagen } = require('../helpers/actualizar-imagen')
 const fileUpload = (req, res = response) => {
   const tipo = req.params.tipo
   const id = req.params.id
-  const tiposValidos = ['usuarios', 'padres', 'maestros', 'grupos', 'alumnos']
+  const tiposValidos = [
+    'usuarios',
+    'padres',
+    'maestros',
+    'grupos',
+    'alumnos',
+    'tutoriales',
+  ]
   if (!tiposValidos.includes(tipo)) {
     return res.status(400).json({
       ok: false,
@@ -25,7 +32,7 @@ const fileUpload = (req, res = response) => {
   const nombreCortado = file.name.split('.')
   const extensionArchivo = nombreCortado[nombreCortado.length - 1]
 
-  const extencionValida = ['png', 'jpg', 'jpeg', 'gif']
+  const extencionValida = ['png', 'jpg', 'jpeg', 'gif', 'mp4']
   if (!extencionValida.includes(extensionArchivo)) {
     return res.status(400).json({
       ok: false,

@@ -22,6 +22,7 @@ app.use(express.json())
 dbConnection()
 
 // Rutas
+app.use('/api/tutoriales', require('./routes/tutorials'))
 app.use('/api/usuarios', require('./routes/usuarios'))
 app.use('/api/catalogos', require('./routes/catalogos'))
 app.use('/api/transaccions', require('./routes/transaccions'))
