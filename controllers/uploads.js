@@ -3,6 +3,8 @@ const fs = require('fs')
 const { response } = require('express')
 const { v4: uuidv4 } = require('uuid')
 const { actualizarImagen } = require('../helpers/actualizar-imagen')
+var timeout = require('connect-timeout')
+
 const fileUpload = (req, res = response) => {
   const tipo = req.params.tipo
   const id = req.params.id
@@ -42,7 +44,6 @@ const fileUpload = (req, res = response) => {
 
   const nombreArchivo = `${uuidv4()}.${extensionArchivo}`
   const path = `./uploads/${tipo}/${nombreArchivo}`
-
   file.mv(path, (err) => {
     if (err) {
       console.log('err', err)

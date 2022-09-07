@@ -34,7 +34,6 @@ const getTutorialsAll = async (req, res) => {
 //crearTutorial Tutorial
 const crearTutorial = async (req, res = response) => {
   const { clave, nombre } = req.body
-  console.log('req.body', req.body)
   const uid = req.uid
   const tutorial = new Tutorial({
     usuario: uid,
