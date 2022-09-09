@@ -22,7 +22,9 @@ const getTutorials = async (req, res) => {
   })
 }
 const getTutorialsAll = async (req, res) => {
-  const [tutorials] = await Promise.all([Tutorial.find({})])
+  const [tutorials] = await Promise.all([
+    Tutorial.find({}).sort({ dateCreated: -1 }),
+  ])
 
   res.json({
     ok: true,
@@ -36,7 +38,7 @@ const crearTutorial = async (req, res = response) => {
   const { clave, nombre } = req.body
   const uid = req.uid
   const tutorial = new Tutorial({
-    usuario: uid,
+    usuarioCreated: uid,
     ...req.body,
   })
 
@@ -76,7 +78,7 @@ const actualizarTutorial = async (req, res = response) => {
         msg: 'No exite un tutorial',
       })
     }
-
+    req.body.usuarioEdited = req.uid
     const tutorialActualizado = await Tutorial.findByIdAndUpdate(
       uid,
       req.body,
@@ -106,13 +108,14 @@ const borrarTutorial = async (req, res = response) => {
         msg: 'No exite un tutorial',
       })
     }
-
+    req.body.usuarioEdited = req.uid
     const {
-      nombre,
       clave,
       titulo,
       subtitulo,
       descripcion,
+      dirigido,
+      cursos,
       ...campos
     } = req.body
 
@@ -142,13 +145,15 @@ const activarTutorial = async (req, res = response) => {
         msg: 'No exite un tutorial',
       })
     }
-
+    req.body.usuarioEdited = req.uid
     const {
       nombre,
       clave,
       titulo,
       subtitulo,
       descripcion,
+      dirigido,
+      cursos,
       ...campos
     } = req.body
 

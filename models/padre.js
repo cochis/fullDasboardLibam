@@ -1,10 +1,12 @@
 const { Schema, model } = require('mongoose')
 const PadreSchema = Schema({
-  hijo: {
-    type: Schema.Types.ObjectId,
-    ref: 'Alumno',
-    required: true,
-  },
+  hijo: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Alumno',
+      required: true,
+    },
+  ],
   titular: {
     type: Boolean,
     required: true,

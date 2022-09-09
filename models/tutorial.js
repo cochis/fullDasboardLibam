@@ -25,6 +25,12 @@ const TutorialSchema = Schema({
   dirigido: {
     type: String,
   },
+  cursos: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Curso',
+    },
+  ],
   activated: {
     type: Boolean,
     default: false,
@@ -40,6 +46,10 @@ const TutorialSchema = Schema({
     default: Date.now(),
   },
   usuarioCreated: {
+    type: Schema.Types.ObjectId,
+    ref: 'Usuario',
+  },
+  usuarioEdited: {
     type: Schema.Types.ObjectId,
     ref: 'Usuario',
   },

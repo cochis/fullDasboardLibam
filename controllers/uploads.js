@@ -32,13 +32,12 @@ const fileUpload = (req, res = response) => {
   const nombreCortado = file.name.split('.')
   const extensionArchivo = nombreCortado[nombreCortado.length - 1]
 
-  const extencionValida = ['png', 'jpg', 'jpeg', 'gif', 'mp4']
-  if (!extencionValida.includes(extensionArchivo)) {
-    return res.status(400).json({
-      ok: false,
-      msg: 'Extension invalida',
-    })
-  }
+  // if (!extencionValida.includes(extensionArchivo)) {
+  //   return res.status(400).json({
+  //     ok: false,
+  //     msg: 'Extension invalida',
+  //   })
+  // }
 
   const nombreArchivo = `${uuidv4()}.${extensionArchivo}`
   const path = `./uploads/${tipo}/${nombreArchivo}`
