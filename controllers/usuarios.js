@@ -59,8 +59,8 @@ const crearUsuario = async (req, res = response) => {
     }
 
     const usuario = new Usuario({
-      usuarioCreated: uid,
       ...req.body,
+      usuarioCreated: uid,
     })
     //Encriptar contraseña
 

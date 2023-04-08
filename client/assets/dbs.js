@@ -1,9 +1,9 @@
-// db.roles.insert({"_id" : ObjectId("62d0b550539c987a827ddf4f"),"nombre" : "Maestro base","clave" : "MST_ROLE","descripcion" : "Maestro de base","activated" : true,"dateCreated" : NumberLong(1657845036740),"lastEdited" : NumberLong(1657845036740)})
-// db.roles.insert({"_id" : ObjectId("62d0b579539c987a827ddf53"),"nombre" : "Maestro ingles","clave" : "MSTI_ROLE","descripcion" : "Maestro de  ingles","activated" : true,"dateCreated" : NumberLong(1657845087394),"lastEdited" : NumberLong(1657845087394)})
-// db.roles.insert({"_id" : ObjectId("62d0b5af539c987a827ddf58"),"nombre" : "Maestro de educación física","clave" : "MSTF_ROLE","descripcion" : "Maestro de educación física","activated" : true,"dateCreated" : NumberLong(1657845127687),"lastEdited" : NumberLong(1657858253449)})
-// db.roles.insert({"_id" : ObjectId("62d0b5eb539c987a827ddf5c"),"nombre" : "Maestro computación","clave" : "MSTC_ROLE","descripcion" : "Maestro de computación","activated" : true,"dateCreated" : NumberLong(1657845196522),"lastEdited" : NumberLong(1657862167967)})
-// db.roles.insert({"_id" : ObjectId("62d0f80ce988a92dd40fb6f0"),"nombre" : "Maestro danza","clave" : "MSTS_ROLE","descripcion" : "Maestro de danza","activated" : true,"dateCreated" : NumberLong(1657862127573),"lastEdited" : NumberLong(1657862171455)})
-// db.roles.insert({"_id" : ObjectId("62e362635dc4f9ffaadcc20c"),"nombre" : "Maestro de musica","clave" : "MSTM_ROLE","descripcion" : "Maestro de musica","activated" : true,"dateCreated" : NumberLong(1659069015408),"lastEdited" : NumberLong(1659070464848)})
+db.roles.insert({"_id" : ObjectId("62d0b550539c987a827ddf4f"),"nombre" : "Maestro base","clave" : "MST_ROLE","descripcion" : "Maestro de base","activated" : true,"dateCreated" : NumberLong(1657845036740),"lastEdited" : NumberLong(1657845036740)})
+db.roles.insert({"_id" : ObjectId("62d0b579539c987a827ddf53"),"nombre" : "Maestro ingles","clave" : "MSTI_ROLE","descripcion" : "Maestro de  ingles","activated" : true,"dateCreated" : NumberLong(1657845087394),"lastEdited" : NumberLong(1657845087394)})
+db.roles.insert({"_id" : ObjectId("62d0b5af539c987a827ddf58"),"nombre" : "Maestro de educación física","clave" : "MSTF_ROLE","descripcion" : "Maestro de educación física","activated" : true,"dateCreated" : NumberLong(1657845127687),"lastEdited" : NumberLong(1657858253449)})
+db.roles.insert({"_id" : ObjectId("62d0b5eb539c987a827ddf5c"),"nombre" : "Maestro computación","clave" : "MSTC_ROLE","descripcion" : "Maestro de computación","activated" : true,"dateCreated" : NumberLong(1657845196522),"lastEdited" : NumberLong(1657862167967)})
+db.roles.insert({"_id" : ObjectId("62d0f80ce988a92dd40fb6f0"),"nombre" : "Maestro danza","clave" : "MSTS_ROLE","descripcion" : "Maestro de danza","activated" : true,"dateCreated" : NumberLong(1657862127573),"lastEdited" : NumberLong(1657862171455)})
+db.roles.insert({"_id" : ObjectId("62e362635dc4f9ffaadcc20c"),"nombre" : "Maestro de musica","clave" : "MSTM_ROLE","descripcion" : "Maestro de musica","activated" : true,"dateCreated" : NumberLong(1659069015408),"lastEdited" : NumberLong(1659070464848)})
 db.roles.insert({"_id" : ObjectId("62e45b5a5d15504d7664ed0d"),"nombre" : "Directivo","clave" : "DIR_ROLE","descripcion" : "Directivo","activated" : true,"dateCreated" : NumberLong(1659132742892),"lastEdited" : NumberLong(1659132780704)})
 
 
@@ -332,6 +332,27 @@ db.cursos.insert({
 
 /* 6 */
 db.cursos.insert({
+"_id": ObjectId("62e4b602d39306775ef9ab1c"),
+"nombre": "6to 2022-2023",
+"clave": "2223T06OA",
+"ciclo": ObjectId("62d0e7d1e988a92dd40fb5db"),
+"grado": ObjectId("62d0e686e988a92dd40fb5b8"),
+"grupo": ObjectId("62d0e8a2e988a92dd40fb5ef"),
+"alumnos": [],
+"maestros": [],
+"activated": true,
+"dateCreated": NumberLong(1659135405138),
+"lastEdited": NumberLong(1659197800098),
+"usuarioCreated": ObjectId("62d0f13de988a92dd40fb668"),
+"__v": 0
+})
+
+
+
+
+
+/* 6 */
+db.usuarios.insert({
 "_id": ObjectId("62e4b602d39306775ef9ab1c"),
 "nombre": "6to 2022-2023",
 "clave": "2223T06OA",

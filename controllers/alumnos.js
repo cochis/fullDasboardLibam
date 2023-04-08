@@ -129,13 +129,8 @@ const getAlumnoById = async (req, res) => {
 
 //crearAlumno Alumno
 const crearAlumno = async (req, res = response) => {
-  const { curp, nombre } = req.body
   const uid = req.uid
-  const alumno = new Alumno({
-    usuarioCreated: uid,
-    ...req.body,
-  })
-
+  const { curp, nombre } = req.body
   try {
     const existeCurp = await Alumno.findOne({ curp })
     if (existeCurp) {
@@ -144,6 +139,11 @@ const crearAlumno = async (req, res = response) => {
         msg: 'El CURP ya esta registrado',
       })
     }
+    console.log('uid', uid)
+    const alumno = new Alumno({
+      ...req.body,
+      usuarioCreated: uid,
+    })
     await alumno.save()
     res.json({
       ok: true,
@@ -153,6 +153,8 @@ const crearAlumno = async (req, res = response) => {
     console.log('error', error)
     res.status(500).json({
       ok: false,
+      ...req.body,
+      usuarioCreated: uid,
       msg: 'Error inesperado...  revisar logs',
     })
   }
