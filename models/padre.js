@@ -50,7 +50,8 @@ const PadreSchema = Schema({
     type: String,
   },
   estadoCivil: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'Catalogo',
   },
   calle: {
     type: String,

@@ -66,7 +66,8 @@ const MaestroSchema = Schema({
     required: true,
   },
   estadoCivil: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'Catalogo',
     required: true,
   },
   calle: {
