@@ -49,7 +49,7 @@ app.use('/api/messages', require('./routes/messages'))
 // app.use('/api/menus', require('./routes/menus'))
 // app.use('/api/roles', require('./routes/roles'))
 app.get('*', function (req, res, next) {
-  res.sendFile(path.resolve('client/index.html'))
+  res.sendFile(path.resolve('adminLibam/index.html'))
 })
 app.listen(process.env.PORT, () => {
   console.log(
