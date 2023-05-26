@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+mongoose.set('strictQuery', false)
 dbConnection().catch((err) => console.log(err))
 const dbName = 'Libam'
 async function dbConnection() {
