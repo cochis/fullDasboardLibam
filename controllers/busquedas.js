@@ -62,7 +62,6 @@ const getDocumentosColeccion = async (req, res = response) => {
           { email: regex },
         ],
       })
-      console.log('data', data)
       break
     case 'cursos':
       data = await Curso.find({ nombre: regex })
@@ -77,7 +76,14 @@ const getDocumentosColeccion = async (req, res = response) => {
 
       break
     case 'alumnos':
-      data = await Alumno.find({ nombre: regex })
+      data = await Alumno.find({
+        $or: [
+          { nombre: regex },
+          { apellidoPaterno: regex },
+          { apellidoMaterno: regex },
+          { clave: regex },
+        ],
+      })
 
       break
 

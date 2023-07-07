@@ -10,6 +10,7 @@ const getTransaccions = async (req, res) => {
   )
     .populate('alumno', 'nombre  apellidoPaterno  apellidoMaterno clave uid')
     .sort({ dateCreated: 1 })
+
   res.json({
     ok: true,
     transaccions,
@@ -43,6 +44,7 @@ const crearTransaccion = async (req, res = response) => {
   const uid = req.uid
   const transaccion = new Transaccion({
     usuario: uid,
+    dateCreated: Date.now(),
     ...req.body,
   })
   try {

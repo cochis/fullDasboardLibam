@@ -139,7 +139,6 @@ const crearAlumno = async (req, res = response) => {
         msg: 'El CURP ya esta registrado',
       })
     }
-    console.log('uid', uid)
     const alumno = new Alumno({
       ...req.body,
       usuarioCreated: uid,
