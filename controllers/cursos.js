@@ -211,7 +211,7 @@ const getCursoById = async (req, res = response) => {
         'nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefono calle numeroExterior numeroInterior colonia codigoPostal estado municipio grado documentosEntregados padres currentCurso notas usuarioCreated usuario activated dateCreated lastEdited uid',
       )
       .populate('grado', 'nombre clave descripcion uid')
-      .populate('alumnos', 'nombre apellidoPaterno apellidoMaterno uid')
+      // .populate('alumnos', 'nombre apellidoPaterno apellidoMaterno uid')
       .populate('ciclo', 'nombre clave descripcion uid')
 
     if (!cursoDB) {
