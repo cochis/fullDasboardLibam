@@ -6,8 +6,14 @@ const { generarJWT } = require('../helpers/jwt')
 const getPagos = async (req, res) => {
   const pagos = await Pago.find(
     {},
-    'nombre clave img descripcion activated dateCreated lastEdited usuarioCreated ',
+    'clave alumno ciclo curso tipoPago referencia referenciaPago cantidad cantidadVencida cantidadPagada fechaPago fechaVencimiento fechaPagado aplicaPago editaFecha autorizaEdita estadoPago checkAbono factura facturado abonos descripcion recibio pagado cancelado activated dateCreated lastEdited usuarioCreated uid  ',
   )
+    .populate(
+      'alumno',
+      'nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefono calle numeroExterior numeroInterior colonia codigoPostal estado municipio grado documentosEntregados padres currentCurso notas usuarioCreated usuario activated dateCreated lastEdited uid',
+    )
+    .populate('ciclo', 'nombre clave descripcion uid')
+    .populate('curso', 'nombre clave descripcion uid')
   res.json({
     ok: true,
     pagos,
@@ -27,10 +33,12 @@ const crearPago = async (req, res = response) => {
   try {
     const existeClave = await Pago.findOne({ clave })
     if (existeClave) {
-      return res.status(400).json({
-        ok: false,
-        msg: 'El pago ya está registrado',
-      })
+      if (!existeClave.cancelado) {
+        return res.status(400).json({
+          ok: false,
+          msg: 'El pago ya está registrado',
+        })
+      }
     }
     await pago.save()
     res.json({
@@ -158,6 +166,12 @@ const getPagoById = async (req, res = response) => {
   const uid = req.params.uid
   try {
     const pagoDB = await Pago.findById(uid)
+      .populate(
+        'alumno',
+        'nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefono calle numeroExterior numeroInterior colonia codigoPostal estado municipio grado documentosEntregados padres currentCurso notas usuarioCreated usuario activated dateCreated lastEdited uid',
+      )
+      .populate('ciclo', 'nombre clave descripcion uid')
+      .populate('curso', 'nombre clave descripcion uid')
     if (!pagoDB) {
       return res.status(404).json({
         ok: false,
@@ -166,7 +180,7 @@ const getPagoById = async (req, res = response) => {
     }
     res.json({
       ok: true,
-      catalogo: pagoDB,
+      pago: pagoDB,
     })
   } catch (error) {
     res.status(500).json({
