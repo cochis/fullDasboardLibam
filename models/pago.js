@@ -84,6 +84,10 @@ const PagoSchema = Schema({
     type: Boolean,
     default: false,
   },
+  exentoPago: {
+    type: Boolean,
+    default: false,
+  },
   abonos: [
     {
       type: Object,

@@ -12,12 +12,16 @@ const {
   borrarPago,
   activarPago,
   getPagoById,
+  cancelarPago,
+  restaurarPago,
+  getPagosByCiclo,
 } = require('../controllers/pagos')
 const { validarAdminJWT } = require('../middlewares/validar-jwt')
 const router = Router()
 
 router.get('/', validarAdminJWT, getPagos)
 router.get('/:uid', validarAdminJWT, getPagoById)
+router.get('/getPagosByCiclo/:ciclo', validarAdminJWT, getPagosByCiclo)
 router.post(
   '/',
   [
@@ -64,6 +68,24 @@ router.put(
     validarCampos,
   ],
   activarPago,
+)
+router.put(
+  '/cancelarPago/:id',
+  [
+    validarAdminJWT,
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
+    validarCampos,
+  ],
+  cancelarPago,
+)
+router.put(
+  '/restaurarPago/:id',
+  [
+    validarAdminJWT,
+    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
+    validarCampos,
+  ],
+  restaurarPago,
 )
 
 module.exports = router

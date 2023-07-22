@@ -126,6 +126,30 @@ const getAlumnoById = async (req, res) => {
     })
   }
 }
+const getAlumnosByCiclo = async (req, res) => {
+  const ciclo = req.params.ciclo
+  try {
+    const alumnosDB = await Alumno.find({ ciclo: ciclo })
+
+    if (!alumnosDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'No exite alumnos en ese ciclo',
+      })
+    }
+    res.json({
+      ok: true,
+      alumnos: alumnosDB,
+    })
+  } catch (error) {
+    console.log('error', error)
+    res.status(500).json({
+      ok: false,
+      error,
+      msg: 'Error inesperado',
+    })
+  }
+}
 
 //crearAlumno Alumno
 const crearAlumno = async (req, res = response) => {
@@ -280,4 +304,5 @@ module.exports = {
   getAlumnoById,
   getAlumnosAll,
   getMyAlumno,
+  getAlumnosByCiclo,
 }

@@ -32,14 +32,14 @@ const crearPago = async (req, res = response) => {
 
   try {
     const existeClave = await Pago.findOne({ clave })
-    if (existeClave) {
-      if (!existeClave.cancelado) {
-        return res.status(400).json({
-          ok: false,
-          msg: 'El pago ya está registrado',
-        })
-      }
-    }
+    // if (existeClave) {
+    //   if (!existeClave.cancelado) {
+    //     return res.status(400).json({
+    //       ok: false,
+    //       msg: 'El pago ya está registrado',
+    //     })
+    //   }
+    // }
     await pago.save()
     res.json({
       ok: true,
@@ -162,6 +162,84 @@ const activarPago = async (req, res = response) => {
     })
   }
 }
+const restaurarPago = async (req, res = response) => {
+  const uid = req.params.id
+  try {
+    const pagoDB = await Pago.findById(uid)
+    if (!pagoDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'No exite un pago',
+      })
+    }
+
+    const {
+      nombre,
+      apellidoPaterno,
+      apellidoMaterno,
+      email,
+      password,
+      img,
+      role,
+      google,
+      ...campos
+    } = req.body
+
+    campos.cancelado = false
+    const pagoActualizado = await Pago.findByIdAndUpdate(uid, campos, {
+      new: true,
+    })
+    res.json({
+      ok: true,
+      pagoActualizado,
+    })
+  } catch (error) {
+    console.log('error', error)
+    res.status(500).json({
+      ok: false,
+      msg: 'Hable con el administrador',
+    })
+  }
+}
+const cancelarPago = async (req, res = response) => {
+  const uid = req.params.id
+  try {
+    const pagoDB = await Pago.findById(uid)
+    if (!pagoDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'No exite un pago',
+      })
+    }
+
+    const {
+      nombre,
+      apellidoPaterno,
+      apellidoMaterno,
+      email,
+      password,
+      img,
+      role,
+      google,
+      ...campos
+    } = req.body
+
+    campos.cancelado = true
+    const pagoActualizado = await Pago.findByIdAndUpdate(uid, campos, {
+      new: true,
+    })
+    res.json({
+      ok: true,
+      pagoActualizado,
+    })
+  } catch (error) {
+    console.log('error', error)
+    res.status(500).json({
+      ok: false,
+      msg: 'Hable con el administrador',
+    })
+  }
+}
 const getPagoById = async (req, res = response) => {
   const uid = req.params.uid
   try {
@@ -189,6 +267,30 @@ const getPagoById = async (req, res = response) => {
     })
   }
 }
+const getPagosByCiclo = async (req, res) => {
+  const ciclo = req.params.ciclo
+  try {
+    const cicloDB = await Pago.find({ ciclo: ciclo })
+
+    if (!cicloDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'No exite pagos en ese ciclo',
+      })
+    }
+    res.json({
+      ok: true,
+      pagos: cicloDB,
+    })
+  } catch (error) {
+    console.log('error', error)
+    res.status(500).json({
+      ok: false,
+      error,
+      msg: 'Error inesperado',
+    })
+  }
+}
 module.exports = {
   getPagos,
   crearPago,
@@ -196,4 +298,7 @@ module.exports = {
   borrarPago,
   activarPago,
   getPagoById,
+  cancelarPago,
+  restaurarPago,
+  getPagosByCiclo,
 }

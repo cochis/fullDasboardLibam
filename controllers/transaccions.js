@@ -20,7 +20,11 @@ const getTransaccions = async (req, res) => {
 const getTransaccionById = async (req, res) => {
   const uid = req.params.uid
   try {
-    const transaccionDB = await Transaccion.findById(uid).populate('alumno')
+    const transaccionDB = await Transaccion.findById(uid)
+      .populate('alumno', 'uid nombre apellidoPaterno apellidoMaterno clave')
+      .populate('metodoPago', 'uid nombre clave')
+      .populate('recibio', 'uid nombre apellidoPaterno apellidoMaterno clave')
+
     if (!transaccionDB) {
       return res.status(404).json({
         ok: false,

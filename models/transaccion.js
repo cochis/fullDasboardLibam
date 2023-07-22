@@ -32,14 +32,24 @@ const TransaccionSchema = Schema({
     required: true,
   },
 
+  pago: {
+    type: Schema.Types.ObjectId,
+    ref: 'Pago',
+    required: true,
+  },
   metodoPago: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'Catalogo',
     required: true,
   },
   referenciaBancaria: {
     type: String,
     default: '',
   },
+  recibio:{
+    type: Schema.Types.ObjectId,
+    ref: 'Usuario',
+  },  
   activated: {
     type: Boolean,
     default: false,
