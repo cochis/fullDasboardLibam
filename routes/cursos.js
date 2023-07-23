@@ -12,7 +12,8 @@ const {
   borrarCurso,
   activarCurso,
   getCursoById,
-  getCursosAll
+  getCursosAll,
+  getCursoByCiclo
 } = require("../controllers/cursos");
 const { validarAdminJWT } = require("../middlewares/validar-jwt");
 const router = Router();
@@ -20,6 +21,7 @@ const router = Router();
 router.get("/", validarAdminJWT, getCursos);
 router.get("/all", validarAdminJWT, getCursosAll);
 router.get("/:uid", validarAdminJWT, getCursoById);
+router.get("/byCiclo/:ciclo", validarAdminJWT, getCursoByCiclo);
 router.post(
   "/",
   [

@@ -15,6 +15,7 @@ const {
   cancelarPago,
   restaurarPago,
   getPagosByCiclo,
+  getPagosByAlumno
 } = require('../controllers/pagos')
 const { validarAdminJWT } = require('../middlewares/validar-jwt')
 const router = Router()
@@ -22,6 +23,7 @@ const router = Router()
 router.get('/', validarAdminJWT, getPagos)
 router.get('/:uid', validarAdminJWT, getPagoById)
 router.get('/getPagosByCiclo/:ciclo', validarAdminJWT, getPagosByCiclo)
+router.get('/getPagosByAlumno/:alumno', validarAdminJWT, getPagosByAlumno)
 router.post(
   '/',
   [

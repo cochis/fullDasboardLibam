@@ -11,7 +11,7 @@ const PagoSchema = Schema({
   },
   ciclo: {
     type: Schema.Types.ObjectId,
-    ref: 'Ciclo',
+    ref: 'Catalogo',
     required: true,
   },
   curso: {

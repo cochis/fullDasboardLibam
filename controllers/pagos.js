@@ -8,12 +8,14 @@ const getPagos = async (req, res) => {
     {},
     'clave alumno ciclo curso tipoPago referencia referenciaPago cantidad cantidadVencida cantidadPagada fechaPago fechaVencimiento fechaPagado aplicaPago editaFecha autorizaEdita estadoPago checkAbono factura facturado abonos descripcion recibio pagado cancelado activated dateCreated lastEdited usuarioCreated uid  ',
   )
+  .populate('ciclo', 'nombre clave descripcion uid')
     .populate(
       'alumno',
       'nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefono calle numeroExterior numeroInterior colonia codigoPostal estado municipio grado documentosEntregados padres currentCurso notas usuarioCreated usuario activated dateCreated lastEdited uid',
     )
-    .populate('ciclo', 'nombre clave descripcion uid')
+  
     .populate('curso', 'nombre clave descripcion uid')
+
   res.json({
     ok: true,
     pagos,
@@ -291,6 +293,30 @@ const getPagosByCiclo = async (req, res) => {
     })
   }
 }
+const getPagosByAlumno = async (req, res) => {
+  const alumno = req.params.alumno
+  try {
+    const cicloDB = await Pago.find({ alumno: alumno })
+
+    if (!cicloDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'No exiten pagos de ese alumno',
+      })
+    }
+    res.json({
+      ok: true,
+      pagos: cicloDB,
+    })
+  } catch (error) {
+    console.log('error', error)
+    res.status(500).json({
+      ok: false,
+      error,
+      msg: 'Error inesperado',
+    })
+  }
+}
 module.exports = {
   getPagos,
   crearPago,
@@ -301,4 +327,5 @@ module.exports = {
   cancelarPago,
   restaurarPago,
   getPagosByCiclo,
+  getPagosByAlumno
 }

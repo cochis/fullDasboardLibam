@@ -232,6 +232,40 @@ const getCursoById = async (req, res = response) => {
   }
 }
 
+const getCursoByCiclo = async (req, res = response) => {
+  const ciclo = req.params.ciclo
+  try {
+    const cursoDB = await Curso.find({ ciclo: ciclo })
+      .populate(
+        'maestros',
+        'nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimiento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefonoCasa telefonoCelular email gradoMaximoEstudios estadoCivil calle numeroExterior numeroInterior colonia codigoPostal estado municipio entreCalles materias grados img documentosEntregados currentCursos currentGrados notas activated dateCreated lastEdited usuarioCreated uid',
+      )
+      .populate(
+        'alumnos',
+        'nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefono calle numeroExterior numeroInterior colonia codigoPostal estado municipio grado documentosEntregados padres currentCurso notas usuarioCreated usuario activated dateCreated lastEdited uid',
+      )
+      .populate('grado', 'nombre clave descripcion uid')
+      // .populate('alumnos', 'nombre apellidoPaterno apellidoMaterno uid')
+      .populate('ciclo', 'nombre clave descripcion uid')
+
+    if (!cursoDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'No exite un curso',
+      })
+    }
+    res.json({
+      ok: true,
+      curso: cursoDB,
+    })
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: 'Error inesperado',
+    })
+  }
+}
+
 module.exports = {
   getCursos,
   crearCurso,
@@ -240,4 +274,5 @@ module.exports = {
   activarCurso,
   getCursoById,
   getCursosAll,
+  getCursoByCiclo
 }
