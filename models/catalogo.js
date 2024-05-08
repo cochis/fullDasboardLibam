@@ -12,6 +12,14 @@ const CatalogoSchema = Schema({
     type: String,
     required: true,
   },
+  tipoDato: {
+    type: String,
+    required: true,
+  },
+  value: {
+    type: String,
+    required: true,
+  },
   img: {
     type: String,
   },

@@ -1,44 +1,39 @@
 /*
-Ruta : api/pagos
+Ruta : api/tarjetaPagos
 */
 
 const { Router } = require('express')
 const { check } = require('express-validator')
 const { validarCampos } = require('../middlewares/validar-campos')
 const {
-  getPagos,
-  crearPago,
-  actualizarPago,
-  borrarPago,
-  activarPago,
-  getPagoById,
-  cancelarPago,
-  restaurarPago,
-  getPagosByCiclo,
-  getPagosByAlumno,
-  getPagosByTarjeta
-} = require('../controllers/pagos')
+  getTarjetaPagos,
+  crearTarjetaPago,
+  actualizarTarjetaPago,
+  borrarTarjetaPago,
+  activarTarjetaPago,
+  getTarjetaPagosById
+} = require('../controllers/tarjetaPago')
 const { validarAdminJWT } = require('../middlewares/validar-jwt')
 const router = Router()
 
-router.get('/', validarAdminJWT, getPagos)
-router.get('/:uid', validarAdminJWT, getPagoById)
-router.post('/byTarjeta', validarAdminJWT, getPagosByTarjeta)
-router.get('/getPagosByCiclo/:ciclo', validarAdminJWT, getPagosByCiclo)
-router.get('/getPagosByAlumno/:alumno', validarAdminJWT, getPagosByAlumno)
+router.get('/', validarAdminJWT, getTarjetaPagos)
+
+
+
 router.post(
   '/',
   [
     validarAdminJWT,
-    check('clave', 'La clave es obligatoria').not().isEmpty(),
     check('alumno', 'El alumno es obligatorio').not().isEmpty(),
+    check('cantidadPagos', 'La cantidad de pagos es obligatoria').not().isEmpty(),
     check('ciclo', 'El ciclo es obligatorio').not().isEmpty(),
     check('curso', 'El curso es obligatorio').not().isEmpty(),
-    check('referencia', 'La referencia es obligatoria').not().isEmpty(),
-    check('cantidad', 'La cantidad es obligatoria').not().isEmpty(),
+    check('colegiatura', 'La colegiatura es obligatoria').not().isEmpty(),
+    check('libro', 'El cobro de libros es obligatorio').not().isEmpty(),
+    check('fechaInscripcion', 'La fecha de inscripción es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  crearPago,
+  crearTarjetaPago,
 )
 
 router.put(
@@ -52,44 +47,26 @@ router.put(
     check('cantidad', 'La cantidad es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  actualizarPago,
+  actualizarTarjetaPago,
 )
-
+router.get("/:uid", validarAdminJWT, getTarjetaPagosById);
 router.put(
-  '/borrarPago/:id',
+  '/borrarTarjetaPago/:id',
   [
     validarAdminJWT,
     check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  borrarPago,
+  borrarTarjetaPago,
 )
 router.put(
-  '/activarPago/:id',
+  '/activarTarjetaPago/:id',
   [
     validarAdminJWT,
     check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  activarPago,
-)
-router.put(
-  '/cancelarPago/:id',
-  [
-    validarAdminJWT,
-    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
-    validarCampos,
-  ],
-  cancelarPago,
-)
-router.put(
-  '/restaurarPago/:id',
-  [
-    validarAdminJWT,
-    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
-    validarCampos,
-  ],
-  restaurarPago,
+  activarTarjetaPago,
 )
 
 module.exports = router

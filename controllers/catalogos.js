@@ -6,7 +6,7 @@ const { generarJWT } = require('../helpers/jwt')
 const getCatalogos = async (req, res) => {
   const catalogos = await Catalogo.find(
     {},
-    'tipo nombre clave img descripcion activated usuario dateCreated lastEditaded usuarioCreated',
+    'tipo nombre clave tipoDato value img descripcion activated usuario dateCreated lastEditaded usuarioCreated',
   )
   res.json({
     ok: true,
