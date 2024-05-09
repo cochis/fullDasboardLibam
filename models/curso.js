@@ -25,14 +25,14 @@ const CursoSchema = Schema({
   },
   alumnos: [
     {
-      required: true,
+
       type: Schema.Types.ObjectId,
       ref: 'Alumno',
     },
   ],
   maestros: [
     {
-      required: true,
+
       type: Schema.Types.ObjectId,
       ref: 'Maestro',
     },
