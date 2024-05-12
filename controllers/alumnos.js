@@ -130,8 +130,8 @@ const getAlumnosByCiclo = async (req, res) => {
   const ciclo = req.params.ciclo
   try {
     const alumnosDB = await Alumno.find({ ciclo: ciclo })
-    console.log('ciclo: ', ciclo);
-    
+    //console.log('ciclo: ', ciclo);
+
 
     if (!alumnosDB) {
       return res.status(404).json({

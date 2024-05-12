@@ -105,6 +105,11 @@ const PagoSchema = Schema({
     type: Boolean,
     default: false,
   },
+  transaccionId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Transaction',
+    default: null
+  },
   activated: {
     type: Boolean,
     default: false,

@@ -22,7 +22,7 @@ const getTarjetaPagos = async (req, res) => {
 
 //crearTarjetaPago TarjetaPago
 const crearTarjetaPago = async (req, res = response) => {
-  console.log('req.body::: ', req.body);
+  //console.log('req.body::: ', req.body);
   const { alumno, ciclo, curso } = req.body;
   const uid = req.uid;
   const tarjetaPago = new TarjetaPago({
@@ -32,7 +32,7 @@ const crearTarjetaPago = async (req, res = response) => {
 
   try {
     const existeClave = await TarjetaPago.findOne({ "alumno": alumno, "ciclo": ciclo, "curso": curso });
-    console.log('existeClave::: ', existeClave);
+    //console.log('existeClave::: ', existeClave);
     if (existeClave) {
       return res.status(400).json({
         ok: false,
@@ -45,7 +45,7 @@ const crearTarjetaPago = async (req, res = response) => {
       tarjetaPago,
     });
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
       msg: "Error inesperado...  revisar logs",
@@ -76,15 +76,17 @@ const actualizarTarjetaPago = async (req, res = response) => {
       tarjetaPagoActualizado,
     });
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
       msg: "Error inesperado",
     });
   }
 };
-const borrarTarjetaPago = async (req, res = response) => {
+
+const activatedTarjetaPago = async (req, res = response) => {
   const uid = req.params.id;
+  //console.log('req::: ', req.body.activated);
   try {
     const tarjetaPagoDB = await TarjetaPago.findById(uid);
     if (!tarjetaPagoDB) {
@@ -95,19 +97,15 @@ const borrarTarjetaPago = async (req, res = response) => {
     }
 
     const {
-      nombre,
-      apellidoPaterno,
-      apellidoMaterno,
-      email,
-      password,
-      img,
-      tarjetaPago,
-      google,
+
       ...campos
     } = req.body;
 
-    campos.activated = false;
-    const tarjetaPagoActualizado = await TarjetaPago.findByIdAndUpdate(uid, campos, {
+    tarjetaPagoDB.activated = !tarjetaPagoDB.activated;
+
+    //console.log('tarjetaPagoDB::: ', tarjetaPagoDB);
+
+    const tarjetaPagoActualizado = await TarjetaPago.findByIdAndUpdate(uid, tarjetaPagoDB, {
       new: true,
     });
     res.json({
@@ -115,46 +113,7 @@ const borrarTarjetaPago = async (req, res = response) => {
       tarjetaPagoActualizado,
     });
   } catch (error) {
-    console.log("error", error);
-    res.status(500).json({
-      ok: false,
-      msg: "Hable con el administrador",
-    });
-  }
-};
-const activarTarjetaPago = async (req, res = response) => {
-  const uid = req.params.id;
-  try {
-    const tarjetaPagoDB = await TarjetaPago.findById(uid);
-    if (!tarjetaPagoDB) {
-      return res.status(404).json({
-        ok: false,
-        msg: "No exite un tarjetaPago",
-      });
-    }
-
-    const {
-      nombre,
-      apellidoPaterno,
-      apellidoMaterno,
-      email,
-      password,
-      img,
-      tarjetaPago,
-      google,
-      ...campos
-    } = req.body;
-
-    campos.activated = true;
-    const tarjetaPagoActualizado = await TarjetaPago.findByIdAndUpdate(uid, campos, {
-      new: true,
-    });
-    res.json({
-      ok: true,
-      tarjetaPagoActualizado,
-    });
-  } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
       msg: "Hable con el administrador",
@@ -195,7 +154,7 @@ module.exports = {
   getTarjetaPagos,
   crearTarjetaPago,
   actualizarTarjetaPago,
-  borrarTarjetaPago,
-  activarTarjetaPago,
+
+  activatedTarjetaPago,
   getTarjetaPagosById,
 };

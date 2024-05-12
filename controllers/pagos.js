@@ -15,6 +15,7 @@ const getPagos = async (req, res) => {
     )
 
     .populate('curso', 'nombre clave descripcion uid')
+    .populate('transaccionId')
 
   res.json({
     ok: true,
@@ -252,6 +253,7 @@ const getPagoById = async (req, res = response) => {
       )
       .populate('ciclo', 'nombre clave descripcion uid')
       .populate('curso', 'nombre clave descripcion uid')
+      .populate('transaccionId')
     if (!pagoDB) {
       return res.status(404).json({
         ok: false,

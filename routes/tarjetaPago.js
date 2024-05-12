@@ -9,8 +9,8 @@ const {
   getTarjetaPagos,
   crearTarjetaPago,
   actualizarTarjetaPago,
-  borrarTarjetaPago,
-  activarTarjetaPago,
+  activatedTarjetaPago,
+
   getTarjetaPagosById
 } = require('../controllers/tarjetaPago')
 const { validarAdminJWT } = require('../middlewares/validar-jwt')
@@ -51,22 +51,14 @@ router.put(
 )
 router.get("/:uid", validarAdminJWT, getTarjetaPagosById);
 router.put(
-  '/borrarTarjetaPago/:id',
+  '/activatedTarjetaPago/:id',
   [
     validarAdminJWT,
     check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
     validarCampos,
   ],
-  borrarTarjetaPago,
+  activatedTarjetaPago,
 )
-router.put(
-  '/activarTarjetaPago/:id',
-  [
-    validarAdminJWT,
-    check('lastEdited', 'La fecha de edición es obligatoria').not().isEmpty(),
-    validarCampos,
-  ],
-  activarTarjetaPago,
-)
+
 
 module.exports = router

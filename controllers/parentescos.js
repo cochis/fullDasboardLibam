@@ -38,7 +38,7 @@ const crearParentesco = async (req, res = response) => {
       parentesco,
     });
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
       msg: "Error inesperado...  revisar logs",
@@ -73,7 +73,7 @@ const actualizarParentesco = async (req, res = response) => {
       parentescoActualizado,
     });
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
       msg: "Error inesperado",
@@ -116,7 +116,7 @@ const borrarParentesco = async (req, res = response) => {
       parentescoActualizado,
     });
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
       msg: "Hable con el administrador",
@@ -159,7 +159,7 @@ const activarParentesco = async (req, res = response) => {
       parentescoActualizado,
     });
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
       msg: "Hable con el administrador",

@@ -38,7 +38,7 @@ const crearSexo = async (req, res = response) => {
       sexo,
     });
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
       msg: "Error inesperado...  revisar logs",
@@ -69,7 +69,7 @@ const actualizarSexo = async (req, res = response) => {
       sexoActualizado,
     });
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
       msg: "Error inesperado",
@@ -108,7 +108,7 @@ const borrarSexo = async (req, res = response) => {
       sexoActualizado,
     });
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
       msg: "Hable con el administrador",
@@ -147,7 +147,7 @@ const activarSexo = async (req, res = response) => {
       sexoActualizado,
     });
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error)
     res.status(500).json({
       ok: false,
       msg: "Hable con el administrador",
