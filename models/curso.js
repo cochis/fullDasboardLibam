@@ -30,6 +30,10 @@ const CursoSchema = Schema({
       ref: 'Alumno',
     },
   ],
+  maestro: {
+    type: Schema.Types.ObjectId,
+    ref: 'Maestro',
+  },
   maestros: [
     {
 

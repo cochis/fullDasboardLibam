@@ -15,7 +15,7 @@ const getPagos = async (req, res) => {
     )
 
     .populate('curso', 'nombre clave descripcion uid')
-    .populate('transaccionId')
+  /* .populate('transaccionId') */
 
   res.json({
     ok: true,
