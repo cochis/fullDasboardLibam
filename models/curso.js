@@ -37,10 +37,12 @@ const CursoSchema = Schema({
 
         type: Schema.Types.ObjectId,
         ref: 'Maestro',
+        default: null
       },
       materia: {
         type: Schema.Types.ObjectId,
         ref: 'Materia',
+        default: null
       }
     }
   ],
