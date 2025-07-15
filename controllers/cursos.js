@@ -12,6 +12,9 @@ const getCursos = async (req, res) => {
       'nombre clave ciclo grado grupo alumnos maestros activated dateCreated lastEdited usuarioCreated  uid',
     )
       .populate(
+        'maestro',
+      )
+      .populate(
         'maestros',
         'nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimiento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefonoCasa telefonoCelular email gradoMaximoEstudios estadoCivil calle numeroExterior numeroInterior colonia codigoPostal estado municipio entreCalles materias grados img documentosEntregados currentCursos currentGrados notas activated dateCreated lastEdited usuarioCreated uid',
       )
@@ -36,6 +39,9 @@ const getCursos = async (req, res) => {
 const getCursosAll = async (req, res) => {
   const [cursos] = await Promise.all([
     Curso.find({})
+      .populate(
+        'maestro',
+      )
       .populate(
         'maestros',
         'nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimiento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefonoCasa telefonoCelular email gradoMaximoEstudios estadoCivil calle numeroExterior numeroInterior colonia codigoPostal estado municipio entreCalles materias grados img documentosEntregados currentCursos currentGrados notas activated dateCreated lastEdited usuarioCreated uid',
@@ -203,6 +209,9 @@ const getCursoById = async (req, res = response) => {
       'nombre clave ciclo grado grupo alumnos maestros activated dateCreated lastEdited usuarioCreated  uid',
     )
       .populate(
+        'maestro',
+      )
+      .populate(
         'maestros',
         'nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimiento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefonoCasa telefonoCelular email gradoMaximoEstudios estadoCivil calle numeroExterior numeroInterior colonia codigoPostal estado municipio entreCalles materias grados img documentosEntregados currentCursos currentGrados notas activated dateCreated lastEdited usuarioCreated uid',
       )
@@ -236,6 +245,9 @@ const getCursoByCiclo = async (req, res = response) => {
   const ciclo = req.params.ciclo
   try {
     const cursoDB = await Curso.find({ ciclo: ciclo })
+      .populate(
+        'maestro',
+      )
       .populate(
         'maestros',
         'nombre apellidoPaterno apellidoMaterno clave sexo fechaNacimiento curp nacionalidad entidadNacimiento peso estatura tipoSanguineo telefonoCasa telefonoCelular email gradoMaximoEstudios estadoCivil calle numeroExterior numeroInterior colonia codigoPostal estado municipio entreCalles materias grados img documentosEntregados currentCursos currentGrados notas activated dateCreated lastEdited usuarioCreated uid',
