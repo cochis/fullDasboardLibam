@@ -36,10 +36,16 @@ const CursoSchema = Schema({
   },
   maestros: [
     {
+      maestro: {
 
-      type: Schema.Types.ObjectId,
-      ref: 'Maestro',
-    },
+        type: Schema.Types.ObjectId,
+        ref: 'Maestro',
+      },
+      materia: {
+        type: Schema.Types.ObjectId,
+        ref: 'Materia',
+      }
+    }
   ],
   activated: {
     type: Boolean,
