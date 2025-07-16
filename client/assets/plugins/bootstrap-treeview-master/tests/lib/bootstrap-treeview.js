@@ -17,7 +17,7 @@
  * limitations under the License.
  * ========================================================= */
 
-;(function ($, window, document, undefined) {
+; (function ($, window, document, undefined) {
 
 	/*global jQuery, console*/
 
@@ -290,8 +290,8 @@
 			// set expanded state; if not provided based on levels
 			if (!node.state.hasOwnProperty('expanded')) {
 				if (!node.state.disabled &&
-						(level < _this.options.levels) &&
-						(node.nodes && node.nodes.length > 0)) {
+					(level < _this.options.levels) &&
+					(node.nodes && node.nodes.length > 0)) {
 					node.state.expanded = true;
 				}
 				else {
@@ -321,7 +321,7 @@
 		var target = $(event.target);
 		var node = this.findNode(target);
 		if (!node || node.state.disabled) return;
-		
+
 		var classList = target.attr('class') ? target.attr('class').split(' ') : [];
 		if ((classList.indexOf('expand-icon') !== -1)) {
 
@@ -329,12 +329,12 @@
 			this.render();
 		}
 		else if ((classList.indexOf('check-icon') !== -1)) {
-			
+
 			this.toggleCheckedState(node, _default.options);
 			this.render();
 		}
 		else {
-			
+
 			if (node.selectable) {
 				this.toggleSelectedState(node, _default.options);
 			} else {
@@ -353,7 +353,7 @@
 		var node = this.nodes[nodeId];
 
 		if (!node) {
-			console.log('Error: node does not exist');
+			console.error('error: node does not exist');
 		}
 		return node;
 	};
@@ -514,9 +514,9 @@
 			var treeItem = $(_this.template.item)
 				.addClass('node-' + _this.elementId)
 				.addClass(node.state.checked ? 'node-checked' : '')
-				.addClass(node.state.disabled ? 'node-disabled': '')
+				.addClass(node.state.disabled ? 'node-disabled' : '')
 				.addClass(node.state.selected ? 'node-selected' : '')
-				.addClass(node.searchResult ? 'search-result' : '') 
+				.addClass(node.searchResult ? 'search-result' : '')
 				.attr('data-nodeid', node.nodeId)
 				.attr('style', _this.buildStyleOverride(node));
 
@@ -548,14 +548,14 @@
 
 			// Add node icon
 			if (_this.options.showIcon) {
-				
+
 				var classList = ['node-icon'];
 
 				classList.push(node.icon || _this.options.nodeIcon);
 				if (node.state.selected) {
 					classList.pop();
-					classList.push(node.selectedIcon || _this.options.selectedIcon || 
-									node.icon || _this.options.nodeIcon);
+					classList.push(node.selectedIcon || _this.options.selectedIcon ||
+						node.icon || _this.options.nodeIcon);
 				}
 
 				treeItem
@@ -569,7 +569,7 @@
 
 				var classList = ['check-icon'];
 				if (node.state.checked) {
-					classList.push(_this.options.checkedIcon); 
+					classList.push(_this.options.checkedIcon);
 				}
 				else {
 					classList.push(_this.options.uncheckedIcon);
@@ -680,7 +680,7 @@
 		if (this.options.onhoverColor) {
 			style += '.node-' + this.elementId + ':not(.node-disabled):hover{' +
 				'background-color:' + this.options.onhoverColor + ';' +
-			'}';
+				'}';
 		}
 
 		return this.css + style;
@@ -727,8 +727,8 @@
 		var parent = this.getParent(node);
 		var nodes = parent ? parent.nodes : this.tree;
 		return nodes.filter(function (obj) {
-				return obj.nodeId !== node.nodeId;
-			});
+			return obj.nodeId !== node.nodeId;
+		});
 	};
 
 	/**
@@ -891,7 +891,7 @@
 		this.forEachIdentifier(identifiers, options, $.proxy(function (node, options) {
 			this.setExpandedState(node, true, options);
 			if (node.nodes && (options && options.levels)) {
-				this.expandLevels(node.nodes, options.levels-1, options);
+				this.expandLevels(node.nodes, options.levels - 1, options);
 			}
 		}, this));
 
@@ -904,7 +904,7 @@
 		$.each(nodes, $.proxy(function (index, node) {
 			this.setExpandedState(node, (level > 0) ? true : false, options);
 			if (node.nodes) {
-				this.expandLevels(node.nodes, level-1, options);
+				this.expandLevels(node.nodes, level - 1, options);
 			}
 		}, this));
 	};
@@ -935,7 +935,7 @@
 		this.forEachIdentifier(identifiers, options, $.proxy(function (node, options) {
 			this.toggleExpandedState(node, options);
 		}, this));
-		
+
 		this.render();
 	};
 
@@ -1085,7 +1085,7 @@
 
 		$.each(identifiers, $.proxy(function (index, identifier) {
 			callback(this.identifyNode(identifier), options);
-		}, this));	
+		}, this));
 	};
 
 	/*
@@ -1093,8 +1093,8 @@
 	*/
 	Tree.prototype.identifyNode = function (identifier) {
 		return ((typeof identifier) === 'number') ?
-						this.nodes[identifier] :
-						identifier;
+			this.nodes[identifier] :
+			identifier;
 	};
 
 	/**
@@ -1156,9 +1156,9 @@
 		});
 
 		if (options.render) {
-			this.render();	
+			this.render();
 		}
-		
+
 		this.$element.trigger('searchCleared', $.extend(true, {}, results));
 	};
 
@@ -1230,7 +1230,7 @@
 				}
 				else {
 					if (!(args instanceof Array)) {
-						args = [ args ];
+						args = [args];
 					}
 					result = _this[options].apply(_this, args);
 				}

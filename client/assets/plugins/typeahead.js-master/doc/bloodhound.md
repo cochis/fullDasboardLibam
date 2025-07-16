@@ -82,7 +82,7 @@ var promise = engine.initialize();
 
 promise
 .done(function() { console.log('ready to go!'); })
-.fail(function() { console.log('err, something went wrong :('); });
+.fail(function() { console.error('err, something went wrong :('); });
 ```
 
 After initialization, how subsequent invocations of `#initialize` behave 
