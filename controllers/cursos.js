@@ -223,6 +223,35 @@ const getCursoById = async (req, res = response) => {
     })
   }
 }
+const getCursoId = async (req, res = response) => {
+  const uid = req.params.uid
+  try {
+    const cursoDB = await Curso.findById(
+      uid,
+      'nombre clave ciclo grado grupo alumnos maestros activated dateCreated lastEdited usuarioCreated  uid',
+    )
+
+      .populate('grado', 'nombre clave descripcion uid')
+      // .populate('alumnos', 'nombre apellidoPaterno apellidoMaterno uid')
+      .populate('ciclo', 'nombre clave descripcion uid')
+
+    if (!cursoDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'No exite un curso',
+      })
+    }
+    res.json({
+      ok: true,
+      curso: cursoDB,
+    })
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: 'Error inesperado',
+    })
+  }
+}
 
 const getCursoByCiclo = async (req, res = response) => {
   const ciclo = req.params.ciclo
@@ -263,5 +292,6 @@ module.exports = {
   activarCurso,
   getCursoById,
   getCursosAll,
-  getCursoByCiclo
+  getCursoByCiclo,
+  getCursoId
 }
