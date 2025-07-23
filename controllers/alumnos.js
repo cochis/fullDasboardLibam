@@ -181,6 +181,7 @@ const crearAlumno = async (req, res = response) => {
       ...req.body,
       usuarioCreated: uid,
       msg: 'Error inesperado...  revisar logs',
+      error
     })
   }
 }
