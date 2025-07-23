@@ -10,7 +10,6 @@ const MaestroSchema = Schema({
   },
   apellidoMaterno: {
     type: String,
-    required: true,
   },
   clave: {
     type: String,
