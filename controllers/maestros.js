@@ -219,6 +219,27 @@ const getMaestroById = async (req, res = response) => {
     })
   }
 }
+const getMaestroByMail = async (req, res = response) => {
+  const email = req.params.email
+  try {
+    const maestroDB = await Maestro.findOne({ email: email })
+    if (!maestroDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'No exite un maestro',
+      })
+    }
+    res.json({
+      ok: true,
+      maestro: maestroDB,
+    })
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: 'Error inesperado',
+    })
+  }
+}
 const getMyMaestro = async (req, res) => {
   const uid = req.params.uid
   try {
@@ -266,4 +287,5 @@ module.exports = {
   getMaestroById,
   getMaestrosAll,
   getMyMaestro,
+  getMaestroByMail
 }
